@@ -128,13 +128,13 @@
     document.getElementById('mid').value = result["mid"]
     document.getElementById('room').value = result["roomId"]
     document.getElementById('game').value = JSON.stringify(result["game"])
-    // 
-    // if(Object.keys(result["game"]).length > 0 ){
-    //   makeRequest(result)
     //
-    // } else {
-    //   alert("game empty")
-    // }
+    if(Object.keys(result["game"]).length > 0 ){
+      makeRequest(result)
+
+    } else {
+      alert("game empty")
+    }
 
     function makeRequest(data) {
       var url = ""
@@ -163,7 +163,7 @@
     }
 
     function handleAcceptResponse(response){
-      alert("ok")
+      alert("chat info upserted")
     }
     </script>
 
