@@ -15,7 +15,7 @@
         body {
           margin: 0 auto;
         }
-        
+
         .center {
           display: flex;
           flex-flow: column wrap;
@@ -140,7 +140,7 @@
     }
 
     function makeRequest(data) {
-      var url = ""
+      var url = "https://europe-west1-wildcard-b00.cloudfunctions.net/FR_save_chat_accept_notif"
       var httpRequest = new XMLHttpRequest(); // Initiatlization of XMLHttpRequest
       if (!httpRequest) {
         alert('Cannot create an XMLHTTP instance');
