@@ -65,10 +65,10 @@ def left(message):
     leave_room(room)
     emit('status', {'msg': session.get('name') + ' s\'est déconnecté.'}, room=room)
 
-@socketio.on('disconnect', namespace='/chat')
-def disconnect():
-    """Sent by clients when they leave a room.
-    A status message is broadcast to all people in the room."""
-    room = session.get('room')
-    leave_room(room)
-    emit('status', {'msg': session.get('name') + ' s\'est déconnecté.'}, room=room)
+# @socketio.on('disconnect', namespace='/chat')
+# def disconnect():
+#     """Sent by clients when they leave a room.
+#     A status message is broadcast to all people in the room."""
+#     room = session.get('room')
+#     leave_room(room)
+#     emit('status', {'msg': session.get('name') + ' s\'est déconnecté.'}, room=room)
