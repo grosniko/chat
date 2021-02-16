@@ -35,7 +35,7 @@
           margin: 0 auto auto auto;
         }
 
-        .button {
+        button, .button {
           margin-top: 10%;
           text-align: center;
           text-transform: uppercase;
@@ -57,6 +57,11 @@
           display:none;
         }
 
+        #submit {
+          margin: 0 auto;
+          display: block;
+        }
+
         </style>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -64,13 +69,14 @@
     <body>
 
         <div class="center">
-          <h1 style="text-align:center; margin: auto auto 0px auto;">Wildcard Chat</h1>
+          <!-- <h1 style="text-align:center; margin: auto auto 0px auto;">Wildcard Chat</h1> -->
           <form method="POST">
             {{ form.hidden_tag() }}
             <span class = "hide"> {{ form.name.label }}: {{ form.name(id_="name") }} {% for error in form.name.errors %}{{ error }}{% endfor %}</span><br>
             <span class = "hide"> {{ form.mid.label }}: {{ form.mid(id_="mid") }} {% for error in form.mid.errors %}{{ error }}{% endfor %}</span><br>
             <span class = "hide"> {{ form.room.label }}: {{ form.room(id_="room") }} {% for error in form.room.errors %}{{ error }}{% endfor %}</span><br>
             <span class = "hide"> {{ form.game.label }}: {{ form.game(id_="game") }} {% for error in form.game.errors %}{{ error }}{% endfor %}</span><br>
+            <img src="{{ url_for('static', filename='yds.png') }}" /><br><br><br>
             {{ form.submit(class_="button") }}
         </form>
       </div>
