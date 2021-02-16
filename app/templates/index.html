@@ -131,7 +131,7 @@
     if(b64String != null){
       b64String = b64String.replace(/\s/g, '+')
       let result_string = b64DecodeUnicode(b64String)
-      result_string = result_string.replace(/'/g,'"')
+      // result_string = result_string.replace(/'/g,'"')
       result= JSON.parse(result_string)
     }
 
