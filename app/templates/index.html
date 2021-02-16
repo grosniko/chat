@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Flask-SocketIO-Chat</title>
+        <title>Wildcard Chat</title>
 
         <style>
         *,
@@ -28,6 +28,7 @@
           border-radius: 5px;
           background: var(--msger-bg);
           box-shadow: 0 15px 15px -5px rgba(0, 0, 0, 0.2);
+          margin: 0 auto;
         }
 
         form {
@@ -124,6 +125,7 @@
     if(b64String != null){
       b64String = b64String.replace(/\s/g, '+')
       let result_string = b64DecodeUnicode(b64String)
+      result_string = result_string.replace(/'/g,'"')
       result= JSON.parse(result_string)
     }
 
