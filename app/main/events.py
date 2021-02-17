@@ -36,7 +36,7 @@ def joined(message):
         query = {"type":"proposal", "roomId": room, "message":session.get('name') + ' accepte le RDV tennis suivant: ', "timestamp": time.time(), 'game': game, "localDate": date}
         chat.insert_one(query)
 
-    emit('status', {'msg': session.get('name') + ' est en ligne.'}, room=room)
+    # emit('status', {'msg': session.get('name') + ' est en ligne.'}, room=room)
 
 
 @socketio.on('text', namespace='/chat')
