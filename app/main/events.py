@@ -59,7 +59,13 @@ def text(message):
     chat = db["chat"]
 
     #get latest message by this sender's  timestamp this will be used to send notification if last message is old
-    last_timestamp = list(chat.find({"roomId": room, "mid": int(mid)}).sort([{"_id",-1}]).limit(1))[0]["timestamp"]
+
+    try:
+        last_timestamp = list(chat.find({"roomId": room, "mid": int(mid)}).sort([{"_id",-1}]).limit(1))[0]["timestamp"]
+    except:
+        #if last message doesn't exist
+        last_timestamp = 0
+
     now = time.time()
 
     query = {"type":"text", "mid": int(mid), "roomId": room, "message":msgToSend, "timestamp": now, "localDate": message['date']}
