@@ -53,8 +53,38 @@ def text(message):
     client = MongoClient("mongodb+srv://save_info:1234@europe-gcp.opnab.mongodb.net/chat?retryWrites=true&w=majority")
     db = client.get_database("chat")
     chat = db["chat"]
-    query = {"type":"text", "roomId": room, "message":msgToSend, "timestamp": time.time(), "localDate": message['date']}
+
+    #get latest message
+    last_timestamp = list(chat.find({"roomId": room}).sort([{"_id",-1}]).limit(1))[0]["timestamp"]
+    now = time.time()
+
+    query = {"type":"text", "roomId": room, "message":msgToSend, "timestamp": now, "localDate": message['date']}
     chat.insert_one(query)
+
+    #send notification
+    #get the receiver mid
+    receiver = 0
+    if room.find(str(mid)) > 0:
+        receiver = int(room.split("_")[1])
+    else:
+        receiver = int(room.split("_")[0])
+
+    data = {
+    "sender": mid,
+    "receiver": receiver,
+    "message": message['msg'],
+    "roomId": room
+    }
+
+    #notify if longer than an hour since last chat
+    if now - last_timestamp >= 3600:
+        #send notification
+        import requests
+        url = "https://europe-west1-wildcard-b00.cloudfunctions.net/FR_chat_notification"
+        response = requests.post(url, data)
+
+
+
 
 
 @socketio.on('left', namespace='/chat')
