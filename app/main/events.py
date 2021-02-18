@@ -35,6 +35,7 @@ def joined(message):
         emit('game', {'message': session.get('name') + ' accepte le RDV tennis suivant: ', 'game': game}, room=room)
         query = {"type":"proposal", "roomId": room, "message":session.get('name') + ' accepte le RDV tennis suivant: ', "timestamp": time.time(), 'game': game, "localDate": date}
         chat.insert_one(query)
+        session['game'] = '{}'
 
     # emit('status', {'msg': session.get('name') + ' est en ligne.'}, room=room)
 
