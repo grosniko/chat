@@ -88,11 +88,7 @@ def text(message):
     }
 
     #notify if longer than an hour since last chat
-    print("data")
-    print(data)
-    print(now)
-    print(last_timestamp)
-    if now - last_timestamp >= 0:
+    if now - last_timestamp >= 1800:
         #send notification
         import requests
         import json

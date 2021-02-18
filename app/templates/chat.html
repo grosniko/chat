@@ -31,6 +31,10 @@ body {
   font-family: Helvetica, sans-serif;
 }
 
+textarea {
+  font-family: Helvetica, sans-serif;
+}
+
 .msger {
   max-width:857px;
   display: flex;
@@ -176,9 +180,11 @@ body {
 .proposal {
     text-align: left;
     margin: 10px;
-    border: 1px solid grey;
     padding: 10px;
     border-radius: 5px;
+    background-color: #FFC770;
+    color: white;
+    font-weight: 800;
 }
 
       </style>
@@ -217,12 +223,14 @@ body {
                     // $('#chat').val($('#chat').val() + data.msg + '\n');
                     $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight);
                 });
-                $('#text').keypress(function(e) {
-                    var code = e.keyCode || e.which;
-                    if (code == 13) {
-                      sendText()
-                    }
-                });
+
+                //Send text on enter
+                // $('#text').keypress(function(e) {
+                //     var code = e.keyCode || e.which;
+                //     if (code == 13) {
+                //       sendText()
+                //     }
+                // });
 
                 socket.on('chatHistory', function (data) {
                       loadChat(data)
@@ -259,7 +267,8 @@ body {
           </main>
 
           <div class="msger-inputarea">
-            <input type="text" id="text" class="msger-input" placeholder="Votre message...">
+            <!-- <input type="text" id="text" class="msger-input" placeholder="Votre message..."> -->
+            <textarea rows=2 id="text" class="msger-input" placeholder="Votre message...">
             <button type="submit" class="msger-send-btn" onclick="sendText()">Poster</button>
           </div>
         </section>
