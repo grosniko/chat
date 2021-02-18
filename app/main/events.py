@@ -86,7 +86,7 @@ def text(message):
     print(data)
     print(now)
     print(last_timestamp)
-    if now - last_timestamp >= 3600:
+    if now - last_timestamp >= 0:
         #send notification
         import requests
         import json
