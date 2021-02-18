@@ -9,4 +9,4 @@ class LoginForm(Form):
     mid = StringField('mid', validators=[Required()])
     room = StringField('Room', validators=[Required()])
     game = StringField('game', validators=[Required()])
-    submit = SubmitField('Chatter')
+    submit = SubmitField('Rentrer')
