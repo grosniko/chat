@@ -34,7 +34,10 @@ def joined(message):
     if len(game)>2:
         emit('game', {'message': session.get('name') + ' accepte le RDV tennis suivant: ', 'game': game}, room=room)
         query = {"type":"proposal", "roomId": room, "message":session.get('name') + ' accepte le RDV tennis suivant: ', "timestamp": time.time(), 'game': game, "localDate": date}
-        chat.insert_one(query)
+
+        #insert if not inserted already
+        if len(list(chat.find(query).limit(1))) > 0:
+            chat.insert_one(query)
         session['game'] = '{}'
 
     # emit('status', {'msg': session.get('name') + ' est en ligne.'}, room=room)
@@ -55,11 +58,11 @@ def text(message):
     db = client.get_database("chat")
     chat = db["chat"]
 
-    #get latest message
-    last_timestamp = list(chat.find({"roomId": room}).sort([{"_id",-1}]).limit(1))[0]["timestamp"]
+    #get latest message by this sender's  timestamp this will be used to send notification if last message is old
+    last_timestamp = list(chat.find({"roomId": room, "mid": int(mid)}).sort([{"_id",-1}]).limit(1))[0]["timestamp"]
     now = time.time()
 
-    query = {"type":"text", "roomId": room, "message":msgToSend, "timestamp": now, "localDate": message['date']}
+    query = {"type":"text", "mid": int(mid), "roomId": room, "message":msgToSend, "timestamp": now, "localDate": message['date']}
     chat.insert_one(query)
 
     #send notification
@@ -71,18 +74,25 @@ def text(message):
         receiver = int(room.split("_")[0])
 
     data = {
-    "sender": mid,
+    "sender": int(mid),
     "receiver": receiver,
     "message": message['msg'],
     "roomId": room
     }
 
     #notify if longer than an hour since last chat
-    if now - last_timestamp >= 3600:
+    print("data")
+    print(data)
+    print(now)
+    print(last_timestamp)
+    if now - last_timestamp >= 0:
         #send notification
         import requests
+        import json
         url = "https://europe-west1-wildcard-b00.cloudfunctions.net/FR_chat_notification"
-        response = requests.post(url, data)
+        print(json.dumps(data))
+        response = requests.post(url, json=data)
+        print(response)
 
 
 

@@ -199,6 +199,7 @@ body {
 
                     socket.emit('joined', {'id': socket.id, 'date': new Date()})
 
+
                 });
 
                 socket.on('status', function(data) {
@@ -333,6 +334,8 @@ function loadChat(data){
 
 
   }
+  //scroll to the bottom
+  $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight)
 
 }
 
@@ -361,6 +364,9 @@ function addGame(data, date=new Date()){
                       '<br>'
 
   chatarea.innerHTML += buildMessage
+
+  //scroll to the bottom
+  $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight)
 }
 
 
