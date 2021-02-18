@@ -68,10 +68,11 @@ def text(message):
     #send notification
     #get the receiver mid
     receiver = 0
+
     if room.find(str(mid)) > 0:
-        receiver = int(room.split("_")[1])
-    else:
         receiver = int(room.split("_")[0])
+    else:
+        receiver = int(room.split("_")[1])
 
     data = {
     "sender": int(mid),
