@@ -24,21 +24,22 @@ def joined(message):
     sort = {'timestamp': -1}
 
     query = {"roomId": room}
+
     chatHistory = list(chat.find(query, {'_id': False}).limit(50))
     if len(chatHistory) > 0:
         emit('chatHistory', {'chatHistory': chatHistory}, room=id)
 
 
-    game = session.get('game')
+    # game = session.get('game')
     #if there is a game proposal
-    if len(game)>2:
-        emit('game', {'message': session.get('name') + ' accepte le RDV tennis suivant: ', 'game': game}, room=room)
-        query = {"type":"proposal", "roomId": room, "message":session.get('name') + ' accepte le RDV tennis suivant: ', "timestamp": time.time(), 'game': game, "localDate": date}
-
-        #insert if not inserted already
-        if len(list(chat.find(query).limit(1))) > 0:
-            chat.insert_one(query)
-        session['game'] = '{}'
+    # if len(game)>2:
+    #     emit('game', {'message': session.get('name') + ' accepte le RDV tennis suivant: ', 'game': game}, room=room)
+    #     query = {"type":"proposal", "roomId": room, "message":session.get('name') + ' accepte le RDV tennis suivant: ', "timestamp": time.time(), 'game': game, "localDate": date}
+    #
+    #     #insert if not inserted already
+    #     if len(list(chat.find(query).limit(1))) > 0:
+    #         chat.insert_one(query)
+    #     session['game'] = '{}'
 
     # emit('status', {'msg': session.get('name') + ' est en ligne.'}, room=room)
 
