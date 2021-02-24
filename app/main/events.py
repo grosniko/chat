@@ -21,8 +21,6 @@ def joined(message):
     db = client.get_database("chat")
     chat = db["chat"]
     #sort by descending order of creation
-    sort = {'timestamp': -1}
-
     query = {"roomId": room}
 
     chatHistory = list(chat.find(query, {'_id': False}).limit(50))
