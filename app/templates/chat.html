@@ -232,8 +232,11 @@ textarea {
                 //       sendText()
                 //     }
                 // });
-
+                //sometimes this never happens on iphone safari, so reload if nothing in 3 seconds
+                let refresh = setTimeout(function(){window.location.reload(1); }, 3000)
                 socket.on('chatHistory', function (data) {
+                      //stop reload if it happens
+                      clearTimeout(refresh)
                       loadChat(data)
                     });
 
