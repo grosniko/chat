@@ -371,6 +371,16 @@ function addGame(data, date=new Date()){
   var chatarea = document.querySelector("#chatarea")
 
   var game = data.game
+  let reservation_block = ''
+  if (game.reservation_link != "<br>"){
+    reservation_block += '<p><a href="' + game.reservation_link + '">📖 Réserver</a></p>'
+  }
+  if (game.club_tel != ""){
+    reservation_block += '<p><a href="tel:' + game.club_tel + '">📞 Appeler</a></p>'
+  }
+  if (game.club_email != ""){
+    reservation_block += '<p><a href="mailto:' + game.club_email + '">✉️ E-mail</a></p>'
+  }
   var buildMessage = '<br><div class="statusUpdate">'+
                         '<p>' + formatDate(date) + '</p><br>'+
                         '<p>' + data.message + '</p>'+
@@ -379,6 +389,7 @@ function addGame(data, date=new Date()){
                         '<p>' + game.game_date + '</p>'+
                         '<p>' + game.game_hour + '</p>'+
                         '<p><a href="' + game.club_address_link + '">' + game.club_address + '</a></p>'+
+                        reservation_block +
                         '</div>'+
                         '<p>Parlez-en ici pour se rencontrer !</p>'+
                         '</div>'+
