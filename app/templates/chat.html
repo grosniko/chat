@@ -33,7 +33,7 @@ body {
 
 textarea {
   font-family: Helvetica, sans-serif;
-  font-size: 20px !important;
+  font-size: 18px !important;
 }
 
 .msger {
@@ -326,17 +326,16 @@ function loadChat(data){
   var userName = chatarea.getAttribute("name")
 
   var chatHistory = data["chatHistory"]
-
-  try {
-      var statusDate = data['chatHistory'][0]["localDate"]
-  } catch(e){
-    var statusDate = new Date(data['chatHistory'][0]["timestamp"])
-
+  let statusDate = ""
+  if(data['chatHistory'][0]["type"] == "proposal"){
+    statusDate = new Date(1000 * data['chatHistory'][0]["timestamp"]) //turn to javascript
+  } else {
+    statusDate = new Date(data['chatHistory'][0]["localDate"])
   }
 
 
-  addHistoryStatus(statusDate)
 
+  addHistoryStatus(statusDate)
   for(var i = 0; i < chatHistory.length; i++){
     if(chatHistory[i]["type"]=="text"){
       var items = chatHistory[i]["message"].split(" ]____[ ")
@@ -345,11 +344,20 @@ function loadChat(data){
       var message = items[1]
       var mid = items[2]
       var date = chatHistory[i]["localDate"]
+      var new_date = new Date(date).setHours(0,0,0,0)
 
+      if(new_date != statusDate.setHours(0,0,0,0)){
+        statusDate = new Date(new_date)
+        addHistoryStatus(statusDate)
+      }
       chatarea.innerHTML += buildMessage(name, mid, clientMid, message, date)
     } else if(chatHistory[i]["type"]=="proposal"){
-
-      addGame(chatHistory[i], statusDate)
+      var new_date = new Date(1000 * chatHistory[i]["timestamp"]).setHours(0,0,0,0)
+      if(new_date != statusDate.setHours(0,0,0,0)){
+        statusDate = new Date(new_date)
+        addHistoryStatus(statusDate)
+      }
+      addGame(chatHistory[i], new Date(1000 * chatHistory[i]["timestamp"]))
     }
 
 
@@ -371,8 +379,8 @@ function addGame(data, date=new Date()){
   var chatarea = document.querySelector("#chatarea")
 
   var game = data.game
-  let reservation_block = ''
-  if (game.reservation_link != "<br>"){
+  let reservation_block = '<br>'
+  if (game.reservation_link != ""){
     reservation_block += '<p><a href="' + game.reservation_link + '">📖 Réserver</a></p>'
   }
   if (game.club_tel != ""){
@@ -407,9 +415,11 @@ function addHistoryStatus(data){
   var a = ""
 
   if(typeof(data) == "string"){
-    var date = new Date(data)
-    a = date.getDate() + "/" + date.getMonth()
+    var data = new Date(data)
   }
+
+    a = data.getDate() + "/" + data.getMonth()
+
   var statusMessage = '<br><div class="statusUpdate"><p>' + a + '</p></div><br>'
   chatarea.innerHTML += statusMessage
 }
