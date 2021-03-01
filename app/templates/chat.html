@@ -380,13 +380,14 @@ function addGame(data, date=new Date()){
 
   var game = data.game
   let reservation_block = '<br>'
-  if (game.reservation_link != ""){
+  if (game.reservation_link != "" && game.reservation_link != "null" && "reservation_link" in game){
     reservation_block += '<p><a href="' + game.reservation_link + '">📖 Réserver</a></p>'
   }
-  if (game.club_tel != ""){
+  
+  if (game.club_tel != "" && game.club_tel != "null" && "club_tel" in game){
     reservation_block += '<p><a href="tel:' + game.club_tel + '">📞 Appeler</a></p>'
   }
-  if (game.club_email != ""){
+  if (game.club_email != "" && game.club_email != "null" && "club_email" in game){
     reservation_block += '<p><a href="mailto:' + game.club_email + '">✉️ E-mail</a></p>'
   }
   var buildMessage = '<br><div class="statusUpdate">'+
@@ -399,7 +400,7 @@ function addGame(data, date=new Date()){
                         '<p><a href="' + game.club_address_link + '">' + game.club_address + '</a></p>'+
                         reservation_block +
                         '</div>'+
-                        '<p>Parlez-en ici pour se rencontrer !</p>'+
+                        '<p>Parlez-en ici pour s\'organiser !</p>'+
                         '</div>'+
                       '<br>'
 
