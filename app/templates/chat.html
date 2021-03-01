@@ -418,7 +418,7 @@ function addHistoryStatus(data){
     var data = new Date(data)
   }
 
-    a = data.getDate() + "/" + data.getMonth()
+    a = data.getDate() + "/" + (data.getMonth() + 1)
 
   var statusMessage = '<br><div class="statusUpdate"><p><strong>' + a + '</strong></p></div><br>'
   chatarea.innerHTML += statusMessage
