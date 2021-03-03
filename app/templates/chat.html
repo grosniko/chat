@@ -212,7 +212,7 @@ body {
  .atc-links-wrapper {
 	 background: white;
 	 transition: transform .5s, opacity .1s;
-	 border: 0 solid red;
+	 border: 0 solid #7470ff;
 	 border-left-width: 1px;
 	 border-right-width: 1px;
 	 box-sizing: border-box;
@@ -227,14 +227,14 @@ body {
 	 text-decoration: none;
 	 text-align: center;
 	 background: white;
-	 color: red;
+	 color: #7470ff;
 	 pointer-events: none;
-	 border-bottom: 1px solid red;
+	 border-bottom: 1px solid #7470ff;
 	 position: relative;
 	 transition: background .5s, color .5s;
 }
  .atc-link:hover {
-	 background: red;
+	 background: #7470ff;
 	 color: white;
 }
  .atc-checkbox {
@@ -388,7 +388,7 @@ function loadChat(data){
 
   var chatarea = document.querySelector("#chatarea")
   var userName = chatarea.getAttribute("name")
-  chatarea.innerHTML = ""
+  // chatarea.innerHTML = ""
   var chatHistory = data["chatHistory"]
   let statusDate = ""
   if(data['chatHistory'][0]["type"] == "proposal"){
@@ -494,28 +494,28 @@ let html = '<div class="atc-wrapper">' +
 		'<input name="atc-checkbox" class="atc-checkbox" id="atc-checkbox" type="checkbox">'+
 		'<div class="atc-links-wrapper">'+
 				'<a class="atc-link icon-google" target="_blank" href="https://www.google.com/calendar/render?action=TEMPLATE&amp;text=Wildcard Tennis ('+partner_name+')&amp;dates='+start_date_string+'/'+end_date_string+'&amp;details='+club_name+'&amp;location='+club_address+'&amp;sprop=&amp;sprop=name:">Google Calendar</a>'+
-				'<a class="atc-link icon-ical" target="_blank" href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR'+
-          'VERSION:2.0'+
-          'BEGIN:VEVENT' +
-          'URL:https://carlsednaoui.github.io/add-to-calendar-buttons/generator/generator.html' +
-          'DTSTART:' + start_date_string +
-          'DTEND:' + end_date_string +
-          'SUMMARY:Wildcard Tennis ('+partner_name+')' +
-          'DESCRIPTION:'+ club_name +
-          'LOCATION:' + club_address +
-          'END:VEVENT' +
-          'END:VCALENDAR">iCal Calendar</a>' +
-				 '<a class="atc-link icon-outlook" target="_blank" href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR' +
-          'VERSION:2.0' +
-          'BEGIN:VEVENT' +
-          'URL:https://carlsednaoui.github.io/add-to-calendar-buttons/generator/generator.html' +
-          'DTSTART:' + start_date_string +
-          'DTEND:' + end_date_string +
-          'SUMMARY: Wildcard Tennis (' + partner_name + ')' +
-          'DESCRIPTION:' + club_name +
-          'LOCATION:' + club_address +
-          'END:VEVENT'+
-          'END:VCALENDAR">Outlook Calendar</a>'+
+				// '<a class="atc-link icon-ical" target="_blank" href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR'+
+        //   'VERSION:2.0'+
+        //   'BEGIN:VEVENT' +
+        //   'URL:https://carlsednaoui.github.io/add-to-calendar-buttons/generator/generator.html' +
+        //   'DTSTART:' + start_date_string +
+        //   'DTEND:' + end_date_string +
+        //   'SUMMARY:Wildcard Tennis ('+partner_name+')' +
+        //   'DESCRIPTION:'+ club_name +
+        //   'LOCATION:' + club_address +
+        //   'END:VEVENT' +
+        //   'END:VCALENDAR">iCal Calendar</a>' +
+				//  '<a class="atc-link icon-outlook" target="_blank" href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR' +
+        //   'VERSION:2.0' +
+        //   'BEGIN:VEVENT' +
+        //   'URL:https://carlsednaoui.github.io/add-to-calendar-buttons/generator/generator.html' +
+        //   'DTSTART:' + start_date_string +
+        //   'DTEND:' + end_date_string +
+        //   'SUMMARY: Wildcard Tennis (' + partner_name + ')' +
+        //   'DESCRIPTION:' + club_name +
+        //   'LOCATION:' + club_address +
+        //   'END:VEVENT'+
+        //   'END:VCALENDAR">Outlook Calendar</a>'+
           		'</div>'+
           '</div>'
   return html
