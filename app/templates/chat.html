@@ -388,7 +388,7 @@ function loadChat(data){
 
   var chatarea = document.querySelector("#chatarea")
   var userName = chatarea.getAttribute("name")
-  // chatarea.innerHTML = ""
+  chatarea.innerHTML = ""
   var chatHistory = data["chatHistory"]
   let statusDate = ""
   if(data['chatHistory'][0]["type"] == "proposal"){
@@ -456,7 +456,7 @@ function addGame(data, date=new Date()){
   }
 
   let partner_name = data.message.split(" ")[0]
-  let add_to_calendar_block = add_to_calendar(partner_name, game.game_date, game.game_hour, game.club_name, game.club_address)
+  // let add_to_calendar_block = add_to_calendar(partner_name, game.game_date, game.game_hour, game.club_name, game.club_address)
 
   var buildMessage = '<br><div class="statusUpdate">'+
                         '<p>' + formatDate(date) + '</p><br>'+
@@ -468,7 +468,7 @@ function addGame(data, date=new Date()){
                         '<p><a href="' + game.club_address_link + '">' + game.club_address + '</a></p>'+
                         reservation_block +
                         '</div>'+
-                        add_to_calendar_block +
+                        // add_to_calendar_block +
                         '<p>Parlez-en ici pour s\'organiser !</p>'+
                         '</div>'+
                       '<br>'
@@ -480,11 +480,12 @@ function addGame(data, date=new Date()){
 }
 
 function add_to_calendar(partner_name, game_date, game_hour, club_name, club_address){
-let hour1 = parseInt(game_hour.replace(":",""))/100
-console.log(hour1+1)
-let date1 = new Date(new Date(game_date).setHours(hour1,0,0,0))
-let date2 = new Date(new Date(game_date).setHours((hour1+1),0,0,0))
+let hour1 = parseInt(game_hour.replace(":","").replace("h", ""))
 
+if(hour1.toString().length == 4){ hour1 = hour1/100}
+console.log(game_date)
+let date1 = new Date(new Date(game_date).setHours(hour1,0,0,0))
+let date2 = new Date(new Date(game_date).setHours(0,0,0,0))
 console.log(date2)
 let start_date_string = date1.toISOString().replaceAll(/-/g,"").replaceAll(/:/g,"").split(".")[0] + "Z"
 let end_date_string = date2.toISOString().replaceAll(/-/g,"").replaceAll(/:/g,"").split(".")[0] + "Z"
