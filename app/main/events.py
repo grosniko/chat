@@ -32,7 +32,7 @@ def joined(message):
         scheduler = db["scheduler"]
         mid = int(session.get('mid'))
         query = {"receiver": mid}
-        scheduler.remove(query)
+        scheduler.delete_many(query)
 
 
     # game = session.get('game')
@@ -95,6 +95,7 @@ def text(message):
     }
 
     #notify if longer than 30 min since last chat
+    scheduler = db["scheduler"]
     if now - last_timestamp >= 1800:
         #send notification
         import requests
@@ -102,11 +103,14 @@ def text(message):
         url = "https://europe-west1-wildcard-b00.cloudfunctions.net/FR_chat_notification"
         # print(json.dumps(data))
         response = requests.post(url, json=data)
+
+        # delete any notifications to be sent to receiver since we are sending one here
+        scheduler.delete_many({"receiver": receiver})
         # print(response)
     elif now - last_timestamp >= 0:
     #otherwise, send to scheduler collection to schedule a notification if user doesn't reconnect
-        print("loading to scheduler")
-        scheduler = db["scheduler"]
+        # print("loading to scheduler")
+
         scheduler.replace_one(data, data, upsert=True)
 
 
