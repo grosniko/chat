@@ -25,7 +25,14 @@ def joined(message):
 
     chatHistory = list(chat.find(query, {'_id': False}).limit(50))
     if len(chatHistory) > 0:
+        #load chat history
         emit('chatHistory', {'chatHistory': chatHistory}, room=id)
+
+        #delete all scheduled notifications to this user in this chatroom
+        scheduler = db["scheduler"]
+        mid = int(session.get('mid'))
+        query = {"receiver": mid}
+        scheduler.remove(query)
 
 
     # game = session.get('game')
@@ -83,18 +90,25 @@ def text(message):
     "sender": int(mid),
     "receiver": receiver,
     "message": message['msg'],
-    "roomId": room
+    "roomId": room,
+    "timestamp": now
     }
 
-    #notify if longer than an hour since last chat
+    #notify if longer than 30 min since last chat
     if now - last_timestamp >= 1800:
         #send notification
         import requests
         import json
         url = "https://europe-west1-wildcard-b00.cloudfunctions.net/FR_chat_notification"
-        print(json.dumps(data))
+        # print(json.dumps(data))
         response = requests.post(url, json=data)
-        print(response)
+        # print(response)
+    elif now - last_timestamp >= 0:
+    #otherwise, send to scheduler collection to schedule a notification if user doesn't reconnect
+        print("loading to scheduler")
+        scheduler = db["scheduler"]
+        scheduler.replace_one(data, data, upsert=True)
+
 
 
 
