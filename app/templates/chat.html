@@ -207,13 +207,13 @@
 
     /* ADD TO CALENDAR */
 
-    .atc-wrapper {
+    /* .atc-wrapper {
       width: 180px;
       height: 40px;
       margin: 20px auto;
-    }
+    } */
 
-    .atc-checkbox-label {
+    /* .atc-checkbox-label {
       width: 100%;
       height: 100%;
       display: block;
@@ -237,7 +237,7 @@
       transform: translateY(-100%);
       width: 100%;
       opacity: 0;
-    }
+    } */
 
     .atc-link {
       line-height: 40px;
@@ -245,32 +245,35 @@
       width: 100%;
       text-decoration: none;
       text-align: center;
-      background: white;
-      color: #7470ff;
-      pointer-events: none;
+      background: #7470ff;
+      color: white;
+      /* pointer-events: none; */
       border-bottom: 1px solid #7470ff;
       position: relative;
       transition: background .5s, color .5s;
+      width: 180px;
+      height: 40px;
+      margin: 20px auto;
     }
 
-    .atc-link:hover {
+    /* .atc-link:hover {
       background: #7470ff;
       color: white;
     }
 
     .atc-checkbox {
       display: none;
-    }
+    } */
 
-    .atc-checkbox:checked+.atc-links-wrapper {
+    /* .atc-checkbox:checked>.atc-links-wrapper {
       transform: translateY(0);
       opacity: 1;
       transition: transform .5s, opacity .5s .2s;
     }
 
-    .atc-checkbox:checked+.atc-links-wrapper .atc-link {
+    .atc-checkbox:checked>.atc-links-wrapper .atc-link {
       pointer-events: auto;
-    }
+    } */
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
@@ -343,7 +346,7 @@
   </script>
 </head>
 <!-- <body> -->
-<section id="messenger" class="msger">
+<section id="messenger" class="msger" style="position:relative;">
   <!-- <header class="msger-header">
             <div class="msger-header-title">
               <i class="fas fa-comment-alt"></i> Wildcard Chat
@@ -479,7 +482,13 @@
     }
 
     let partner_name = data.message.split(" ")[0]
-    // let add_to_calendar_block = add_to_calendar(partner_name, game.game_date, game.game_hour, game.club_name, game.club_address)
+    let add_to_calendar_block = ""
+
+
+    if(game.club_name.includes("mais vous pouvez vous mettre d'accord par chat")==false){
+      add_to_calendar_block = add_to_calendar(details["partner_name"], details["chat_link"], game.game_date, game.game_hour, game.club_name, game.club_address)
+    }
+
 
     var buildHTML = '<br><div class="statusUpdate">'
       if(!search){
@@ -494,8 +503,9 @@
       '<p>' + game.game_hour + '</p>' +
       '<p><a href="' + game.club_address_link + '" target="blank">' + game.club_address + '</a></p>' +
       reservation_block +
-      '</div>'
-      // add_to_calendar_block +
+      '</div>'+
+
+      add_to_calendar_block
       if(!search){
       buildHTML += '<p>Parlez-en ici pour s\'organiser !</p>'
     } else {
@@ -513,25 +523,28 @@
     }
   }
 
-  function add_to_calendar(partner_name, game_date, game_hour, club_name, club_address) {
+  function add_to_calendar(partner_name, chat_link, game_date, game_hour, club_name, club_address) {
     let hour1 = parseInt(game_hour.replace(":", "").replace("h", ""))
 
-    if (hour1.toString().length == 4) {
+    if (hour1.toString().length > 2) {
       hour1 = hour1 / 100
     }
 
-    let date1 = new Date(new Date(game_date).setHours(hour1, 0, 0, 0))
-    let date2 = new Date(new Date(game_date).setHours(0, 0, 0, 0))
+    let date1 = new Date(new Date(game_date).setHours(0,0,0,0))
+    let date2 = new Date(new Date(game_date).setHours(0,0,0,0))
+
+    date1.addHours(hour1)
+    date2.addHours(hour1 + 1)
 
     let start_date_string = date1.toISOString().replaceAll(/-/g, "").replaceAll(/:/g, "").split(".")[0] + "Z"
     let end_date_string = date2.toISOString().replaceAll(/-/g, "").replaceAll(/:/g, "").split(".")[0] + "Z"
 
     let html = '<div class="atc-wrapper">' +
       '<label for="atc-checkbox" class="atc-checkbox-label">Rajouter au calendrier</label>' +
-      '<input name="atc-checkbox" class="atc-checkbox" id="atc-checkbox" type="checkbox">' +
-      '<div class="atc-links-wrapper">' +
-      '<a class="atc-link icon-google" target="_blank" href="https://www.google.com/calendar/render?action=TEMPLATE&amp;text=Wildcard Tennis (' + partner_name + ')&amp;dates=' + start_date_string + '/' + end_date_string + '&amp;details=' +
-      club_name + '&amp;location=' + club_address + '&amp;sprop=&amp;sprop=name:">Google Calendar</a>' +
+      // '<input name="atc-checkbox" class="atc-checkbox" id="atc-checkbox" type="checkbox">' +
+      '<div class="atc-links-wrapper" >' +
+      '<a class="atc-link icon-google" target="_blank" href="https://www.google.com/calendar/render?action=TEMPLATE&amp;text=Wildcard Tennis (' + partner_name + ' @ ' + club_name + ')&amp;dates=' + start_date_string + '/' + end_date_string + '&amp;details=' +
+      "Chat : " + chat_link + '&amp;location=' + club_address + '&amp;sprop=&amp;sprop=name:">Google Calendar</a>' +
       // '<a class="atc-link icon-ical" target="_blank" href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR'+
       //   'VERSION:2.0'+
       //   'BEGIN:VEVENT' +

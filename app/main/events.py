@@ -11,6 +11,7 @@ def joined(message):
     room = session.get('room')
     id = message["id"]
     date = message["date"]
+    mid = session.get('mid')
     join_room(room)
 
 
@@ -18,9 +19,26 @@ def joined(message):
     #load history
     #save to mongo
     client = MongoClient("mongodb+srv://save_info:1234@europe-gcp.opnab.mongodb.net/chat?retryWrites=true&w=majority")
+
+    #sort by descending order of creation
+
+    #get chatroom info
+    db = client.get_database("chat_rooms")
+    chat = db["chat_rooms"]
+    query = {"roomId": room, "mid" : {"$ne": int(mid)}}
+    chat_rooms = db["chat_rooms"]
+    chat_room = list(chat_rooms.find(query, {'_id': False}).limit(1))[0]
+    partner_name = chat_room["name"]
+    partner_mid = chat_room["mid"]
+
+    query = {"roomId": room, "mid" : int(mid)}
+    chat_room = list(chat_rooms.find(query, {'_id': False}).limit(1))[0]
+    chat_link = chat_room["chat_link"]
+
+    emit('details', {'roomId': room, "name": session.get("name"), "mid": int(mid), "chat_link":chat_link, "partner_name": partner_name, "partner_mid": partner_mid}, room=id)
+
     db = client.get_database("chat")
     chat = db["chat"]
-    #sort by descending order of creation
     query = {"roomId": room}
 
     chatHistory = list(chat.find(query, {'_id': False}).limit(50))
@@ -30,11 +48,9 @@ def joined(message):
 
         #delete all scheduled notifications to this user in this chatroom
         scheduler = db["scheduler"]
-        mid = int(session.get('mid'))
         query = {"receiver": mid}
         scheduler.delete_many(query)
 
-        emit('details', {'roomId': room, "name": session.get("name"), "mid": mid})
     # game = session.get('game')
     #if there is a game proposal
     # if len(game)>2:
@@ -85,7 +101,7 @@ def proposal(message):
     "roomId": room,
     "timestamp": now,
     }
-    
+
     #notify if longer than 30 min since last chat
     scheduler = db["scheduler"]
     if now - last_timestamp >= 1800:
