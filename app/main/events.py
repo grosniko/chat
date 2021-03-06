@@ -34,7 +34,7 @@ def joined(message):
         query = {"receiver": mid}
         scheduler.delete_many(query)
 
-
+        emit('details', {'roomId': room, "name": session.get("name"), "mid": mid})
     # game = session.get('game')
     #if there is a game proposal
     # if len(game)>2:
@@ -48,6 +48,62 @@ def joined(message):
 
     # emit('status', {'msg': session.get('name') + ' est en ligne.'}, room=room)
 
+
+@socketio.on('proposal', namespace='/chat')
+def proposal(message):
+    #save to mongo
+    client = MongoClient("mongodb+srv://save_info:1234@europe-gcp.opnab.mongodb.net/chat?retryWrites=true&w=majority")
+    db = client.get_database("chat")
+    chat = db["chat"]
+    room = session.get('room')
+    name = session.get('name')
+    mid = session.get('mid')
+    #send notification
+    #get the receiver mid
+    receiver = 0
+
+    if room.find(str(mid)) > 0:
+        receiver = int(room.split("_")[0])
+    else:
+        receiver = int(room.split("_")[1])
+    now = time.time()
+
+    try:
+        last_timestamp = list(chat.find({"roomId": room, "mid": int(mid)}).sort([{"_id",-1}]).limit(1))[0]["timestamp"]
+    except:
+        #if last message doesn't exist
+        last_timestamp = 0
+
+    chat.insert_one(message)
+    message.pop("_id",None)
+    emit('game', message)
+
+    data = {
+    "sender": int(mid),
+    "receiver": receiver,
+    "message": name + " t'a proposé un créneau.",
+    "roomId": room,
+    "timestamp": now,
+    }
+    
+    #notify if longer than 30 min since last chat
+    scheduler = db["scheduler"]
+    if now - last_timestamp >= 1800:
+        #send notification
+        import requests
+        import json
+        url = "https://europe-west1-wildcard-b00.cloudfunctions.net/FR_chat_notification"
+        # print(json.dumps(data))
+        response = requests.post(url, json=data)
+
+        # delete any notifications to be sent to receiver since we are sending one here
+        scheduler.delete_many({"receiver": receiver})
+        # print(response)
+    elif now - last_timestamp >= 0:
+
+    #otherwise, send to scheduler collection to schedule a notification if user doesn't reconnect
+        # print("loading to scheduler")
+        scheduler.replace_one({"sender": int(mid), "roomId": room}, data, upsert=True)
 
 @socketio.on('text', namespace='/chat')
 def text(message):
@@ -111,7 +167,7 @@ def text(message):
     #otherwise, send to scheduler collection to schedule a notification if user doesn't reconnect
         # print("loading to scheduler")
 
-        scheduler.replace_one(data, data, upsert=True)
+        scheduler.replace_one({"sender": int(mid), "roomId": room}, data, upsert=True)
 
 
 

@@ -1,325 +1,350 @@
 <html>
-    <head>
-      <style>
-      :root {
-  --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  --msger-bg: #fff;
-  --border: 2px solid #ddd;
-  --left-msg-bg: #ececec;
-  --right-msg-bg: #579ffb;
-}
 
-html {
-  box-sizing: border-box;
-}
+<head>
+  <style>
+    :root {
+      --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      --msger-bg: #fff;
+      --border: 2px solid #ddd;
+      --left-msg-bg: #ececec;
+      --right-msg-bg: #579ffb;
+    }
 
-*,
-*:before,
-*:after {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
-  font-size: 2.3vh;
-}
+    html {
+      box-sizing: border-box;
+    }
 
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  background-image: var(--body-bg);
-  font-family: Helvetica, sans-serif;
-}
+    *,
+    *:before,
+    *:after {
+      margin: 0;
+      padding: 0;
+      box-sizing: inherit;
+      font-size: 2.3vh;
+    }
 
-textarea {
-  font-family: Helvetica, sans-serif;
-  font-size: 18px !important;
-}
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      background-image: var(--body-bg);
+      font-family: Helvetica, sans-serif;
+    }
 
-.msger {
-  max-width:857px;
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: space-between;
-  width: 100%;
-  margin:0 auto;
-  /* max-width: 100%; */
-  /* margin: 25px 10px; */
-  margin: 0 0;
-  height: 100%;
-  border: var(--border);
-  border-radius: 5px;
-  background: var(--msger-bg);
-  box-shadow: 0 15px 15px -5px rgba(0, 0, 0, 0.2);
-}
+    textarea {
+      font-family: Helvetica, sans-serif;
+      font-size: 18px !important;
+    }
 
-.msger-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  border-bottom: var(--border);
-  background: #eee;
-  color: #666;
-}
+    .msger {
+      max-width: 857px;
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: space-between;
+      width: 100%;
+      margin: 0 auto;
+      /* max-width: 100%; */
+      /* margin: 25px 10px; */
+      margin: 0 0;
+      height: 100%;
+      border: var(--border);
+      border-radius: 5px;
+      background: var(--msger-bg);
+      box-shadow: 0 15px 15px -5px rgba(0, 0, 0, 0.2);
+    }
 
-.msger-chat {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px;
-}
-.msger-chat::-webkit-scrollbar {
-  width: 6px;
-}
-.msger-chat::-webkit-scrollbar-track {
-  background: #ddd;
-}
-.msger-chat::-webkit-scrollbar-thumb {
-  background: #bdbdbd;
-}
-.msg {
-  display: flex;
-  align-items: flex-end;
-  margin-bottom: 10px;
-}
-.msg:last-of-type {
-  margin: 0;
-}
-.msg-img {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
-  background: #ddd;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  border-radius: 50%;
-}
-.msg-bubble {
-  max-width: 450px;
-  padding: 15px;
-  border-radius: 15px;
-  background: var(--left-msg-bg);
-}
-.msg-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-.msg-info-name {
-  margin-right: 10px;
-  font-weight: bold;
-}
-.msg-info-time {
-  font-size: 0.85em;
-}
+    .msger-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: var(--border);
+      background: #eee;
+      color: #666;
+    }
 
-.left-msg .msg-bubble {
-  border-bottom-left-radius: 0;
-}
+    .msger-chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+    }
 
-.right-msg {
-  flex-direction: row-reverse;
-}
-.right-msg .msg-bubble {
-  background: var(--right-msg-bg);
-  color: #fff;
-  border-bottom-right-radius: 0;
-}
-.right-msg .msg-img {
-  margin: 0 0 0 10px;
-}
+    .msger-chat::-webkit-scrollbar {
+      width: 6px;
+    }
 
-.msger-inputarea {
-  display: flex;
-  padding: 10px;
-  border-top: var(--border);
-  background: #eee;
-}
-.msger-inputarea * {
-  padding: 10px;
-  border: none;
-  border-radius: 3px;
-  font-size: 1em;
-}
-.msger-input {
-  flex: 1;
-  background: #ddd;
-}
-.msger-send-btn {
-  margin-left: 10px;
-  background: rgb(0, 196, 65);
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.23s;
-}
-.msger-send-btn:hover {
-  background: rgb(0, 180, 50);
-}
+    .msger-chat::-webkit-scrollbar-track {
+      background: #ddd;
+    }
 
-.msger-chat {
-  background: linear-gradient(325deg, rgb(255 199 0 / 50%), transparent);
-}
-:root {
-  --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  --msger-bg: #fff;
-  --border: 2px solid #ddd;
-  --left-msg-bg: #ececec;
-  --right-msg-bg: #579ffb;
-}
+    .msger-chat::-webkit-scrollbar-thumb {
+      background: #bdbdbd;
+    }
 
+    .msg {
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 10px;
+    }
 
-.statusUpdate {
-  text-align:center;
-  font-style:italic;
-  color:grey;
-}
+    .msg:last-of-type {
+      margin: 0;
+    }
 
+    .msg-img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      background: #ddd;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      border-radius: 50%;
+    }
 
-.proposal {
-    text-align: left;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #FFC770;
-    color: white;
-    font-weight: 800;
-}
+    .msg-bubble {
+      max-width: 450px;
+      padding: 15px;
+      border-radius: 15px;
+      background: var(--left-msg-bg);
+    }
 
-/* ADD TO CALENDAR */
+    .msg-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
 
- .atc-wrapper {
-	 width: 180px;
-	 height: 40px;
-	 margin: 20px auto;
-}
- .atc-checkbox-label {
-	 width: 100%;
-	 height: 100%;
-	 display: block;
-	 background: #7470ff;
-	 color: white;
-	 line-height: 40px;
-	 text-align: center;
-	 cursor: pointer;
-	 position: relative;
-	 z-index: 1;
-	 user-select: none;
-}
- .atc-links-wrapper {
-	 background: white;
-	 transition: transform .5s, opacity .1s;
-	 border: 0 solid #7470ff;
-	 border-left-width: 1px;
-	 border-right-width: 1px;
-	 box-sizing: border-box;
-	 transform: translateY(-100%);
-	 width: 100%;
-	 opacity: 0;
-}
- .atc-link {
-	 line-height: 40px;
-	 display: block;
-	 width: 100%;
-	 text-decoration: none;
-	 text-align: center;
-	 background: white;
-	 color: #7470ff;
-	 pointer-events: none;
-	 border-bottom: 1px solid #7470ff;
-	 position: relative;
-	 transition: background .5s, color .5s;
-}
- .atc-link:hover {
-	 background: #7470ff;
-	 color: white;
-}
- .atc-checkbox {
-	 display: none;
-}
- .atc-checkbox:checked + .atc-links-wrapper {
-	 transform: translateY(0);
-	 opacity: 1;
-	 transition: transform .5s, opacity .5s .2s;
-}
- .atc-checkbox:checked + .atc-links-wrapper .atc-link {
-	 pointer-events: auto;
-}
+    .msg-info-name {
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    .msg-info-time {
+      font-size: 0.85em;
+    }
+
+    .left-msg .msg-bubble {
+      border-bottom-left-radius: 0;
+    }
+
+    .right-msg {
+      flex-direction: row-reverse;
+    }
+
+    .right-msg .msg-bubble {
+      background: var(--right-msg-bg);
+      color: #fff;
+      border-bottom-right-radius: 0;
+    }
+
+    .right-msg .msg-img {
+      margin: 0 0 0 10px;
+    }
+
+    .msger-inputarea {
+      display: flex;
+      padding: 10px;
+      border-top: var(--border);
+      background: #eee;
+    }
+
+    .msger-inputarea * {
+      padding: 10px;
+      border: none;
+      border-radius: 3px;
+      font-size: 1em;
+    }
+
+    .msger-input {
+      flex: 1;
+      background: #ddd;
+    }
+
+    .msger-send-btn {
+      margin-left: 10px;
+      background: rgb(0, 196, 65);
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.23s;
+    }
+
+    .msger-send-btn:hover {
+      background: rgb(0, 180, 50);
+    }
+
+    .msger-chat {
+      background: linear-gradient(325deg, rgb(255 199 0 / 50%), transparent);
+    }
+
+    :root {
+      --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      --msger-bg: #fff;
+      --border: 2px solid #ddd;
+      --left-msg-bg: #ececec;
+      --right-msg-bg: #579ffb;
+    }
 
 
-
-      </style>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-
-
-        <title>Wildcard Chat: {{ name }}</title>
-        <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
-        <script type="text/javascript" charset="utf-8">
-            var socket;
-            $(document).ready(function(){
+    .statusUpdate {
+      text-align: center;
+      font-style: italic;
+      color: grey;
+    }
 
 
+    .proposal {
+      text-align: left;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #FFC770;
+      color: white;
+      font-weight: 800;
+    }
 
-                socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
-                socket.on('connect', function() {
+    /* ADD TO CALENDAR */
 
-                    socket.emit('joined', {'id': socket.id, 'date': new Date()})
+    .atc-wrapper {
+      width: 180px;
+      height: 40px;
+      margin: 20px auto;
+    }
+
+    .atc-checkbox-label {
+      width: 100%;
+      height: 100%;
+      display: block;
+      background: #7470ff;
+      color: white;
+      line-height: 40px;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+      user-select: none;
+    }
+
+    .atc-links-wrapper {
+      background: white;
+      transition: transform .5s, opacity .1s;
+      border: 0 solid #7470ff;
+      border-left-width: 1px;
+      border-right-width: 1px;
+      box-sizing: border-box;
+      transform: translateY(-100%);
+      width: 100%;
+      opacity: 0;
+    }
+
+    .atc-link {
+      line-height: 40px;
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      text-align: center;
+      background: white;
+      color: #7470ff;
+      pointer-events: none;
+      border-bottom: 1px solid #7470ff;
+      position: relative;
+      transition: background .5s, color .5s;
+    }
+
+    .atc-link:hover {
+      background: #7470ff;
+      color: white;
+    }
+
+    .atc-checkbox {
+      display: none;
+    }
+
+    .atc-checkbox:checked+.atc-links-wrapper {
+      transform: translateY(0);
+      opacity: 1;
+      transition: transform .5s, opacity .5s .2s;
+    }
+
+    .atc-checkbox:checked+.atc-links-wrapper .atc-link {
+      pointer-events: auto;
+    }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
 
-                });
+  <title>Wildcard Chat: {{ name }}</title>
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    var socket;
+    $(document).ready(function() {
 
-                socket.on('status', function(data) {
-                    addStatus(data.msg);
-                    $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight);
-                });
 
-                socket.on('disconnect', function () {
-                      socket.emit('disconnected', {});
-                    });
 
-                socket.on('message', function(data) {
+      socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
+      socket.on('connect', function() {
 
-                    addChat(data.msg)
-                    // $('#chat').val($('#chat').val() + data.msg + '\n');
-                    $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight);
-                });
+        socket.emit('joined', {
+          'id': socket.id,
+          'date': new Date()
+        })
 
-                //Send text on enter
-                // $('#text').keypress(function(e) {
-                //     var code = e.keyCode || e.which;
-                //     if (code == 13) {
-                //       sendText()
-                //     }
-                // });
-                //sometimes this never happens on iphone safari, so reload if nothing in 1.5 seconds
-                let refresh = setTimeout(function(){window.location.reload(1); }, 1000)
-                socket.on('chatHistory', function (data) {
-                      //stop reload if it happens
-                      clearTimeout(refresh)
-                      loadChat(data)
-                    });
 
-                socket.on('game', function (data) {
-                      addGame(data)
-                    });
+      });
 
-            });
-            function leave_room() {
-                socket.emit('left', {}, function() {
-                    socket.disconnect();
+      socket.on('status', function(data) {
+        addStatus(data.msg);
+        $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight);
+      });
 
-                    // go back to the login page
-                    window.location.href = "{{ url_for('main.index') }}";
-                });
-            }
-        </script>
-    </head>
-    <!-- <body> -->
-        <section id="messenger" class="msger">
-          <!-- <header class="msger-header">
+      socket.on('disconnect', function() {
+        socket.emit('disconnected', {});
+      });
+
+      socket.on('message', function(data) {
+
+        addChat(data.msg)
+        // $('#chat').val($('#chat').val() + data.msg + '\n');
+        $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight);
+      });
+
+      let refresh = setTimeout(function() {
+        window.location.reload(1);
+      }, 1000)
+      socket.on('chatHistory', function(data) {
+        //stop reload if it happens
+        clearTimeout(refresh)
+        loadChat(data)
+      });
+
+      socket.on('game', function(game) {
+
+        addGame(game, game.date)
+      });
+
+      socket.on('details', function(data) {
+        details = data
+      });
+
+    });
+
+    function leave_room() {
+      socket.emit('left', {}, function() {
+        socket.disconnect();
+
+        // go back to the login page
+        window.location.href = "{{ url_for('main.index') }}";
+      });
+    }
+  </script>
+</head>
+<!-- <body> -->
+<section id="messenger" class="msger">
+  <!-- <header class="msger-header">
             <div class="msger-header-title">
               <i class="fas fa-comment-alt"></i> Wildcard Chat
             </div>
@@ -328,240 +353,583 @@ textarea {
             </div>
           </header> -->
 
-          <main class="msger-chat" id="chatarea" mid={{ mid }}>
+  <main class="msger-chat" id="chatarea" mid={{ mid }}>
 
-          </main>
+  </main>
+  <button type="submit" style="position:absolute; bottom:100px; right:20px; padding:10px; border:1px solid white; background:transparent;" class="msger-send-btn" onclick="findCourtsInterface()">🔎</button>
+  <div class="msger-inputarea">
+    <!-- <input type="text" id="text" class="msger-input" placeholder="Votre message..."> -->
+    <textarea rows=2 id="text" class="msger-input" placeholder="Votre message..."></textarea>
+    <button type="submit" class="msger-send-btn" onclick="sendText()">Envoyer</button>
+  </div>
+</section>
 
-          <div class="msger-inputarea">
-            <!-- <input type="text" id="text" class="msger-input" placeholder="Votre message..."> -->
-            <textarea rows=2 id="text" class="msger-input" placeholder="Votre message..."></textarea>
-            <button type="submit" class="msger-send-btn" onclick="sendText()">Poster</button>
-          </div>
-        </section>
-
-        <a href="#" onclick="leave_room();"></a>
-    <!-- </body> -->
+<a href="#" onclick="leave_room();"></a>
+<!-- </body> -->
 
 <script>
-
-function buildMessage(name, mid, clientMid, message, date){
-  var msgclass = ""
-
-
-  // https://image.flaticon.com/icons/svg/145/145867.svg
-  // https://image.flaticon.com/icons/svg/327/327779.svg
-
-  if(mid == clientMid){
-    msgclass = '<div class="msg right-msg">'
-    // '<div class="msg-img" style="background-image: url({{url_for("static", filename="/img/512.png")}})" ></div>'
-  } else {
-    msgclass = '<div class="msg left-msg">'
-    // '<div class="msg-img" style="background-image: url({{url_for("static", filename="/img/512_2.png")}})" ></div>'
-  }
-
-  var msgHTML = msgclass +
-    '<div class="msg-bubble"> <div class="msg-info"> <div class="msg-info-name">' +
-    name +
-    '</div> <div class="msg-info-time">'+formatDate(date)+'</div> </div> <div class="msg-text">' +
-    message +
-    '</div> </div> </div>'
-
-  return msgHTML
-}
+  let details = {}
+  function buildMessage(name, mid, clientMid, message, date) {
+    var msgclass = ""
 
 
-function addChat(data){
-  var chatarea = document.querySelector("#chatarea")
-  var clientMid = chatarea.getAttribute("mid")
-  var items = data.split(" ]____[ ")
-  var name = items[0]
-  var message = items[1]
-  var mid = items[2]
-  var date = new Date()
+    // https://image.flaticon.com/icons/svg/145/145867.svg
+    // https://image.flaticon.com/icons/svg/327/327779.svg
 
-  chatarea.innerHTML += buildMessage(name, mid, clientMid, message, date)
-}
+    if (mid == clientMid) {
+      msgclass = '<div class="msg right-msg">'
+      // '<div class="msg-img" style="background-image: url({{url_for("static", filename="/img/512.png")}})" ></div>'
+    } else {
+      msgclass = '<div class="msg left-msg">'
+      // '<div class="msg-img" style="background-image: url({{url_for("static", filename="/img/512_2.png")}})" ></div>'
+    }
 
-function loadChat(data){
+    var msgHTML = msgclass +
+      '<div class="msg-bubble"> <div class="msg-info"> <div class="msg-info-name">' +
+      name +
+      '</div> <div class="msg-info-time">' + formatDate(date) + '</div> </div> <div class="msg-text">' +
+      message +
+      '</div> </div> </div>'
 
-  var chatarea = document.querySelector("#chatarea")
-  var userName = chatarea.getAttribute("name")
-  chatarea.innerHTML = ""
-  var chatHistory = data["chatHistory"]
-  let statusDate = ""
-  if(data['chatHistory'][0]["type"] == "proposal"){
-    statusDate = new Date(1000 * data['chatHistory'][0]["timestamp"]) //turn to javascript
-  } else {
-    statusDate = new Date(data['chatHistory'][0]["localDate"])
+    return msgHTML
   }
 
 
+  function addChat(data) {
+    var chatarea = document.querySelector("#chatarea")
+    var clientMid = chatarea.getAttribute("mid")
+    var items = data.split(" ]____[ ")
+    var name = items[0]
+    var message = items[1]
+    var mid = items[2]
+    var date = new Date()
 
-  addHistoryStatus(statusDate)
-  for(var i = 0; i < chatHistory.length; i++){
-    if(chatHistory[i]["type"]=="text"){
-      var items = chatHistory[i]["message"].split(" ]____[ ")
-      var clientMid = chatarea.getAttribute("mid")
-      var name = items[0]
-      var message = items[1]
-      var mid = items[2]
-      var date = chatHistory[i]["localDate"]
-      var new_date = new Date(date).setHours(0,0,0,0)
+    chatarea.innerHTML += buildMessage(name, mid, clientMid, message, date)
+  }
 
-      if(new_date != statusDate.setHours(0,0,0,0)){
-        statusDate = new Date(new_date)
-        addHistoryStatus(statusDate)
-      }
-      chatarea.innerHTML += buildMessage(name, mid, clientMid, message, date)
-    } else if(chatHistory[i]["type"]=="proposal"){
-      var new_date = new Date(1000 * chatHistory[i]["timestamp"]).setHours(0,0,0,0)
-      if(new_date != statusDate.setHours(0,0,0,0)){
-        statusDate = new Date(new_date)
-        addHistoryStatus(statusDate)
-      }
-      addGame(chatHistory[i], new Date(1000 * chatHistory[i]["timestamp"]))
+  function loadChat(data) {
+
+    var chatarea = document.querySelector("#chatarea")
+    var userName = chatarea.getAttribute("name")
+    chatarea.innerHTML = ""
+    var chatHistory = data["chatHistory"]
+    let statusDate = ""
+    if (data['chatHistory'][0]["type"] == "proposal") {
+      statusDate = new Date(1000 * data['chatHistory'][0]["timestamp"]) //turn to javascript
+    } else {
+      statusDate = new Date(data['chatHistory'][0]["localDate"])
     }
 
 
+
+    addHistoryStatus(statusDate)
+    for (var i = 0; i < chatHistory.length; i++) {
+      if (chatHistory[i]["type"] == "text") {
+        var items = chatHistory[i]["message"].split(" ]____[ ")
+        var clientMid = chatarea.getAttribute("mid")
+        var name = items[0]
+        var message = items[1]
+        var mid = items[2]
+        var date = chatHistory[i]["localDate"]
+        var new_date = new Date(date).setHours(0, 0, 0, 0)
+
+        if (new_date != statusDate.setHours(0, 0, 0, 0)) {
+          statusDate = new Date(new_date)
+          addHistoryStatus(statusDate)
+        }
+        chatarea.innerHTML += buildMessage(name, mid, clientMid, message, date)
+      } else if (chatHistory[i]["type"] == "proposal") {
+        var new_date = new Date(1000 * chatHistory[i]["timestamp"]).setHours(0, 0, 0, 0)
+        if (new_date != statusDate.setHours(0, 0, 0, 0)) {
+          statusDate = new Date(new_date)
+          addHistoryStatus(statusDate)
+        }
+        addGame(chatHistory[i], new Date(1000 * chatHistory[i]["timestamp"]))
+      }
+
+
+    }
+    //scroll to the bottom
+    $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight)
+
   }
-  //scroll to the bottom
-  $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight)
-
-}
 
 
-function addStatus(data){
-  var chatarea = document.querySelector("#chatarea")
-  var buildMessage = '<br><div class="statusUpdate"><p>' + formatDate(new Date()) + '</p><br><p>' + data + '</p></div><br>'
-  chatarea.innerHTML += buildMessage
-}
-
-function addGame(data, date=new Date()){
-
-  var chatarea = document.querySelector("#chatarea")
-
-  var game = data.game
-  let reservation_block = '<br>'
-  if (game.reservation_link != "" && game.reservation_link != "null" && "reservation_link" in game){
-    reservation_block += '<p><a target="_blank" href="' + game.reservation_link + '">📖 Réserver</a></p>'
+  function addStatus(data) {
+    var chatarea = document.querySelector("#chatarea")
+    var buildHTML= '<br><div class="statusUpdate"><p>' + formatDate(new Date()) + '</p><br><p>' + data + '</p></div><br>'
+    chatarea.innerHTML += buildHTML
   }
 
-  if (game.club_tel != "" && game.club_tel != "null" && "club_tel" in game){
-    reservation_block += '<p><a href="tel:' + game.club_tel + '">📞 Appeler</a></p>'
+  function addGame(data, date = new Date(), search = false, game_num = 0) {
+
+    var chatarea = document.querySelector("#chatarea")
+
+    var game = data.game
+    let reservation_block = '<br>'
+    if (game.reservation_link != "" && game.reservation_link != "null" && "reservation_link" in game) {
+      reservation_block += '<p><a target="_blank" href="' + game.reservation_link + '">📖 Réserver</a></p>'
+    }
+
+    if (game.club_tel != "" && game.club_tel != "null" && "club_tel" in game) {
+      reservation_block += '<p><a href="tel:' + game.club_tel + '">📞 Appeler</a></p>'
+    }
+    if (game.club_email != "" && game.club_email != "null" && "club_email" in game) {
+      reservation_block += '<p><a href="mailto:' + game.club_email + '">✉️ E-mail</a></p>'
+    }
+
+    let partner_name = data.message.split(" ")[0]
+    // let add_to_calendar_block = add_to_calendar(partner_name, game.game_date, game.game_hour, game.club_name, game.club_address)
+
+    var buildHTML = '<br><div class="statusUpdate">'
+      if(!search){
+        buildHTML +='<p>' + formatDate(date) + '</p><br>'+
+                    '<p>' + data.message + '</p>'+
+                    '<div class="proposal">'
+      } else {
+        buildHTML += '<div class="proposal" style="border: 1px solid white;">'
+      }
+      buildHTML += '<p>' + game.club_name + '</p>' +
+      '<p>' + game.game_date + '</p>' +
+      '<p>' + game.game_hour + '</p>' +
+      '<p><a href="' + game.club_address_link + '" target="blank">' + game.club_address + '</a></p>' +
+      reservation_block +
+      '</div>'
+      // add_to_calendar_block +
+      if(!search){
+      buildHTML += '<p>Parlez-en ici pour s\'organiser !</p>'
+    } else {
+      buildHTML += '<p><button class="msger-send-btn" style="padding:10px; background-color: #7470ff;" onclick=proposeTime("'+game.game_hour+'",'+game_num+')> Proposer ce créneau </button></p>'
+    }
+      buildHTML += '</div>' +
+      '<br>'
+
+    if(search){
+      document.querySelector("#search_results").innerHTML += buildHTML
+    } else {
+      chatarea.innerHTML += buildHTML
+      //scroll to the bottom
+      $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight)
+    }
   }
-  if (game.club_email != "" && game.club_email != "null" && "club_email" in game){
-    reservation_block += '<p><a href="mailto:' + game.club_email + '">✉️ E-mail</a></p>'
+
+  function add_to_calendar(partner_name, game_date, game_hour, club_name, club_address) {
+    let hour1 = parseInt(game_hour.replace(":", "").replace("h", ""))
+
+    if (hour1.toString().length == 4) {
+      hour1 = hour1 / 100
+    }
+
+    let date1 = new Date(new Date(game_date).setHours(hour1, 0, 0, 0))
+    let date2 = new Date(new Date(game_date).setHours(0, 0, 0, 0))
+
+    let start_date_string = date1.toISOString().replaceAll(/-/g, "").replaceAll(/:/g, "").split(".")[0] + "Z"
+    let end_date_string = date2.toISOString().replaceAll(/-/g, "").replaceAll(/:/g, "").split(".")[0] + "Z"
+
+    let html = '<div class="atc-wrapper">' +
+      '<label for="atc-checkbox" class="atc-checkbox-label">Rajouter au calendrier</label>' +
+      '<input name="atc-checkbox" class="atc-checkbox" id="atc-checkbox" type="checkbox">' +
+      '<div class="atc-links-wrapper">' +
+      '<a class="atc-link icon-google" target="_blank" href="https://www.google.com/calendar/render?action=TEMPLATE&amp;text=Wildcard Tennis (' + partner_name + ')&amp;dates=' + start_date_string + '/' + end_date_string + '&amp;details=' +
+      club_name + '&amp;location=' + club_address + '&amp;sprop=&amp;sprop=name:">Google Calendar</a>' +
+      // '<a class="atc-link icon-ical" target="_blank" href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR'+
+      //   'VERSION:2.0'+
+      //   'BEGIN:VEVENT' +
+      //   'URL:https://carlsednaoui.github.io/add-to-calendar-buttons/generator/generator.html' +
+      //   'DTSTART:' + start_date_string +
+      //   'DTEND:' + end_date_string +
+      //   'SUMMARY:Wildcard Tennis ('+partner_name+')' +
+      //   'DESCRIPTION:'+ club_name +
+      //   'LOCATION:' + club_address +
+      //   'END:VEVENT' +
+      //   'END:VCALENDAR">iCal Calendar</a>' +
+      //  '<a class="atc-link icon-outlook" target="_blank" href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR' +
+      //   'VERSION:2.0' +
+      //   'BEGIN:VEVENT' +
+      //   'URL:https://carlsednaoui.github.io/add-to-calendar-buttons/generator/generator.html' +
+      //   'DTSTART:' + start_date_string +
+      //   'DTEND:' + end_date_string +
+      //   'SUMMARY: Wildcard Tennis (' + partner_name + ')' +
+      //   'DESCRIPTION:' + club_name +
+      //   'LOCATION:' + club_address +
+      //   'END:VEVENT'+
+      //   'END:VCALENDAR">Outlook Calendar</a>'+
+      '</div>' +
+      '</div>'
+    return html
   }
 
-  let partner_name = data.message.split(" ")[0]
-  // let add_to_calendar_block = add_to_calendar(partner_name, game.game_date, game.game_hour, game.club_name, game.club_address)
+  function addHistoryStatus(data) {
+    var chatarea = document.querySelector("#chatarea")
+    var a = ""
 
-  var buildMessage = '<br><div class="statusUpdate">'+
-                        '<p>' + formatDate(date) + '</p><br>'+
-                        '<p>' + data.message + '</p>'+
-                        '<div class="proposal">'+
-                        '<p>' + game.club_name + '</p>'+
-                        '<p>' + game.game_date + '</p>'+
-                        '<p>' + game.game_hour + '</p>'+
-                        '<p><a href="' + game.club_address_link + '">' + game.club_address + '</a></p>'+
-                        reservation_block +
-                        '</div>'+
-                        // add_to_calendar_block +
-                        '<p>Parlez-en ici pour s\'organiser !</p>'+
-                        '</div>'+
-                      '<br>'
-
-  chatarea.innerHTML += buildMessage
-
-  //scroll to the bottom
-  $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight)
-}
-
-function add_to_calendar(partner_name, game_date, game_hour, club_name, club_address){
-let hour1 = parseInt(game_hour.replace(":","").replace("h", ""))
-
-if(hour1.toString().length == 4){ hour1 = hour1/100}
-console.log(game_date)
-let date1 = new Date(new Date(game_date).setHours(hour1,0,0,0))
-let date2 = new Date(new Date(game_date).setHours(0,0,0,0))
-console.log(date2)
-let start_date_string = date1.toISOString().replaceAll(/-/g,"").replaceAll(/:/g,"").split(".")[0] + "Z"
-let end_date_string = date2.toISOString().replaceAll(/-/g,"").replaceAll(/:/g,"").split(".")[0] + "Z"
-
-let html = '<div class="atc-wrapper">' +
-		'<label for="atc-checkbox" class="atc-checkbox-label">Rajouter au calendrier</label>'+
-		'<input name="atc-checkbox" class="atc-checkbox" id="atc-checkbox" type="checkbox">'+
-		'<div class="atc-links-wrapper">'+
-				'<a class="atc-link icon-google" target="_blank" href="https://www.google.com/calendar/render?action=TEMPLATE&amp;text=Wildcard Tennis ('+partner_name+')&amp;dates='+start_date_string+'/'+end_date_string+'&amp;details='+club_name+'&amp;location='+club_address+'&amp;sprop=&amp;sprop=name:">Google Calendar</a>'+
-				// '<a class="atc-link icon-ical" target="_blank" href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR'+
-        //   'VERSION:2.0'+
-        //   'BEGIN:VEVENT' +
-        //   'URL:https://carlsednaoui.github.io/add-to-calendar-buttons/generator/generator.html' +
-        //   'DTSTART:' + start_date_string +
-        //   'DTEND:' + end_date_string +
-        //   'SUMMARY:Wildcard Tennis ('+partner_name+')' +
-        //   'DESCRIPTION:'+ club_name +
-        //   'LOCATION:' + club_address +
-        //   'END:VEVENT' +
-        //   'END:VCALENDAR">iCal Calendar</a>' +
-				//  '<a class="atc-link icon-outlook" target="_blank" href="data:text/calendar;charset=utf8,BEGIN:VCALENDAR' +
-        //   'VERSION:2.0' +
-        //   'BEGIN:VEVENT' +
-        //   'URL:https://carlsednaoui.github.io/add-to-calendar-buttons/generator/generator.html' +
-        //   'DTSTART:' + start_date_string +
-        //   'DTEND:' + end_date_string +
-        //   'SUMMARY: Wildcard Tennis (' + partner_name + ')' +
-        //   'DESCRIPTION:' + club_name +
-        //   'LOCATION:' + club_address +
-        //   'END:VEVENT'+
-        //   'END:VCALENDAR">Outlook Calendar</a>'+
-          		'</div>'+
-          '</div>'
-  return html
-}
-
-function addHistoryStatus(data){
-  var chatarea = document.querySelector("#chatarea")
-  var a = ""
-
-  if(typeof(data) == "string"){
-    var data = new Date(data)
-  }
+    if (typeof(data) == "string") {
+      var data = new Date(data)
+    }
 
     a = data.getDate() + "/" + (data.getMonth() + 1)
 
-  var statusMessage = '<br><div class="statusUpdate"><p><strong>' + a + '</strong></p></div><br>'
-  chatarea.innerHTML += statusMessage
-}
-
-function sendText(){
-  text = $('#text').val();
-  $('#text').val('');
-  socket.emit('text', {msg: text, date: new Date()});
-}
-
-
-
-function formatDate(date) {
-  var a = ""
-  if(typeof(date) == "string"){
-    date = new Date(date)
+    var statusMessage = '<br><div class="statusUpdate"><p><strong>' + a + '</strong></p></div><br>'
+    chatarea.innerHTML += statusMessage
   }
 
-  const h = "0" + date.getHours();
-  const m = "0" + date.getMinutes();
+  function sendText() {
+    text = $('#text').val();
+    $('#text').val('');
+    socket.emit('text', {
+      msg: text,
+      date: new Date()
+    });
+  }
 
-  return `${h.slice(-2)}:${m.slice(-2)}`;
-}
+  function formatDate(date) {
+    var a = ""
+    if (typeof(date) == "string") {
+      date = new Date(date)
+    }
 
-Date.prototype.addHours = function(h) {
-  this.setTime(this.getTime() + (h*60*60*1000));
-  return this;
-}
+    const h = "0" + date.getHours();
+    const m = "0" + date.getMinutes();
 
-$(window).load(
-  document.getElementById("text").focus()
-)
+    return `${h.slice(-2)}:${m.slice(-2)}`;
+  }
+
+  Date.prototype.addHours = function(h) {
+    this.setTime(this.getTime() + (h * 60 * 60 * 1000));
+    return this;
+  }
+
+  $(window).load(
+    document.getElementById("text").focus()
+  )
+
+
+  // COURT SEARCH FEATURE
+  let proposals = {}
+  function findCourtsInterface() {
+    proposals = {}
+    var chatarea = document.querySelector("#chatarea")
+    try {
+      document.querySelector("#search").remove()
+    } catch (e) {}
+    var buildHTML = '<div id="search"><div class="statusUpdate"><p><strong>Recherche de terrain (ton interlocuteur ne voit pas ceci)</strong></p></div><br>' +
+      '<div class="proposal" style="padding: 20px">' +
+      '<p>📅 Date</p>' +
+      '<p>' + '<input type="date" id="search_date">' + '</p>' +
+      // '<p>🕑 Heure</p>' +
+      // '<p>' + '<select id="search_time"><option value="morning">matin</option><option value="afternoon">après-midi</option><option value="evening">soir</option></select></p>' +
+      '<p>📍Localisation (XX ou XXXXX)</p>' +
+      '<p>' + '<input id="search_location" type="text" size="5" maxlength="5" placeholder="ie 75"></p>' +
+      '<br><p><img style="display:none; padding-left:10px; width: 90px;" id="search_loading" src="../static/loading.gif" /><button id="search_button" class="msger-send-btn" style="padding:10px; background-color: #7470ff;" onclick=searchCourts()>Search</button></p>' +
+      '<br>' +
+      '<select style="display:none;" id="search_options"><option value="">🕑 Choisir</option></select>'+
+      '<div id="search_results"></div>'+
+      '</div>' +
+      '</div>' +
+      '<br>' +
+      '</div>'
+    chatarea.innerHTML += buildHTML
+
+    document.querySelector("#search_options").addEventListener("change", (event)=> {
+      document.querySelector("#search_results").innerHTML = ""
+      let hour = document.querySelector("#search_options").value
+      if(hour == ""){
+        document.querySelector("#search_results").innerHTML = ""
+      } else {
+        let games = proposals[hour]
+        for(var i = 0; i < games.length; i++){
+            addGame(games[i], games[i].date, true, i)
+        }
+      }
+
+    })
+
+    $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight);
+  }
+
+  function searchCourts() {
+
+    let date = document.querySelector("#search_date").value
+    let location = document.querySelector("#search_location").value
+    var missing_text = ""
+    if (date == "") {
+      missing_text += "\n date"
+    }
+    if (location == "" || location == undefined || location.length == 1 || location.length == 3 || location.length == 4) {
+      missing_text += "\n code postal"
+    }
+
+    if (missing_text.length > 1) {
+      alert("Il manque les informations suivantes :" + missing_text)
+      return
+    }
+
+    if (new Date(date).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0)) {
+      alert("Choisis la date d'ajourd'hui ou une date future.")
+      return
+    }
+    document.querySelector("#search_results").innerHTML = ""
+    document.querySelector("#search_options").style.display = "none"
+    document.querySelector("#search_loading").style.display = "inherit"
+    document.querySelector("#search_button").style.display = "none"
+
+
+    let paris = "https://europe-west1-wildcard-b00.cloudfunctions.net/FR_parisTennis"
+    let getCourts = "https://europe-west1-wildcard-b00.cloudfunctions.net/FR_getCourts"
+
+    let getCourts_body = make_getCourts_body(location, date)
+    let paris_body = make_paris_body(location, date)
+
+    makeRequest(getCourts, getCourts_body, "getCourts")
+    //create loading for profile
+
+    if (paris_body) {
+      makeRequest(paris, paris_body, "paris")
+    }
+
+  }
+
+  function make_getCourts_body(location, date) {
+    let req = {
+      "params": [{
+        "city": location.toString(),
+        "distance": "30"
+      }],
+      "date": {},
+      "practice": ["TENNIS"],
+      "surface": [],
+      "roof": [],
+      "hours_to_show": []
+    }
+
+    //Remove ile de France - all postcodes within 92, 93, 94, 75 are considered the same location, so just keep the first one
+    let inParis = false
+    for (var i = 0; i < req["params"].length; i++) {
+      let dep = req["params"][i]["city"].substring(0, 2)
+      if (dep == "92" || dep == "93" || dep == "94" || dep == "75") {
+        if (inParis) {
+          req["params"].splice(i, 1)
+        }
+        inParis = true
+      }
+    }
+    // console.log(req["params"])
+    // Pick the date of the request
+
+    let date_split = date.split("-")
+    req["date"] = {
+      "day": parseInt(date_split[2]),
+      "month": parseInt(date_split[1]),
+      "year": parseInt(date_split[0])
+    }
+
+    return req
+  }
+
+  function make_paris_body(location, date) {
+    let req = {
+      "locations": []
+    }
+
+    let inParis = false
+    //retain only paris postcodes (72, 92, 93)
+    if (location.substring(0, 2) == "75") {
+      inParis = true
+    } else if (location.substring(0, 2) == "92") {
+      inParis = true
+    } else if (location.substring(0, 2) == "93") {
+      inParis = true
+    }
+
+    if (inParis) {
+      location = ["75", "92", "93"]
+    } else {
+      return false;
+    }
+
+    //if no Paris codes, end function
+
+
+    let hourRange = "8-22" //complete hour range for more flexibility
+
+    //manage date
+    let date_split = date.split("-")
+    date = date_split[2] + "/" + date_split[1] + "/" + date_split[0]
+
+    //create body
+    for (var i = 0; i < location.length; i++) {
+      req["locations"].push({
+        "location": location[i],
+        "hourRange": hourRange,
+        "when": date
+      })
+    }
+
+    return req
+  }
+
+  function makeRequest(url, data, requestName) {
+
+    var httpRequest = new XMLHttpRequest(); // Initiatlization of XMLHttpRequest
+    if (!httpRequest) {
+      alert('Cannot create an XMLHTTP instance');
+      return false;
+    }
+
+    httpRequest.onreadystatechange = function() { // ready state event, will be executed once the server send back the data
+      if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (httpRequest.status === 200) {
+          if (requestName == "getCourts") {
+            handleGetCourtsResponse(httpRequest.responseText)
+          } else if (requestName == "paris") {
+            handleParisResponse(httpRequest.responseText)
+          }
+        } else {
+          if (requestName == "getCourts") {
+            alert('There was a problem with the getCourts request.');
+            handleGetCourtsResponse("error")
+          } else if (requestName == "paris") {
+            alert('There was a problem with the paris request.');
+            handleParisResponse("error")
+          }
+        }
+      }
+    }
+    httpRequest.open("POST", url);
+    httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    httpRequest.send(JSON.stringify(data));
+
+  }
+
+  function handleGetCourtsResponse(response) {
+    if (response == "error") {
+      return "error"
+    }
+
+    document.querySelector("#search_loading").style.display = "none"
+    document.querySelector("#search_button").style.display = "inherit"
+
+    response = JSON.parse(response)
+
+    document.querySelector("#search_options").style.display = "inherit"
+
+    for (var i = 0; i < response["response"].length; i++) {
+      for (var x = 0; x < response["response"][i].length; x++){
+        var address = response["response"][i][x]["address"]
+        var address_link = "https://www.google.com/maps/search/" + address
+        var name = response["response"][i][x]["title"]
+        var club_tel = address.match(/\b\d{10}\b/g)
+        var club_email = ""
+        if(response["response"][i][x]["info"].length > 0){
+          if("Telephone" in response["response"][i][x]["info"][0]){
+            club_tel = response["response"][i][x]["info"][0]["Telephone"]
+          }
+          if("Email" in response["response"][i][x]["info"][0]){
+            club_email = response["response"][i][x]["info"][0]["Email"]
+          }
+        }
+
+        for (var z = 0; z < response["response"][i][x]["times"].length; z++) {
+          hour = response["response"][i][x]["times"][z]
+          if(!(hour in proposals)){
+              proposals[hour] = []
+              addhourtolist(hour)
+          }
+          proposals[hour].push({
+            "type": "proposal",
+            "roomId": details["roomId"],
+            "mid": details["mid"],
+            "message": details["name"] + " propose le créneau suivant :",
+            "timestamp": Date.now()/1000,
+            "game": {
+              "club_name": name,
+              "game_hour": hour,
+              "club_address": address,
+              "game_date": document.querySelector("#search_date").value,
+              "club_tel": club_tel,
+              "club_email": club_email,
+              "reservation_link": "https://tenup.fft.fr/location-horaire",
+              "club_address_link": address_link
+            }
+          })
+        }
+      }
+    }
+
+  }
+
+  function handleParisResponse(response) {
+    if (response == "error") {
+      return "error"
+    }
+
+    document.querySelector("#search_loading").style.display = "none"
+    document.querySelector("#search_button").style.display = "inherit"
+    response = JSON.parse(response)
+    document.querySelector("#search_options").style.display = "inherit"
+    for (var i = 0; i < response["response"].length; i++) {
+      var address = response["response"][i]["address"]
+      var address_link = "https://www.google.com/maps/search/" + address
+      var name = response["response"][i]["name"]
+      for (var x = 0; x < response["response"][i]["options"].length; x++) {
+        hour = response["response"][i]["options"][x]["hour"].split("h")[0] + ":00"
+        if(!(hour in proposals)){
+            proposals[hour] = []
+            addhourtolist(hour)
+        }
+        proposals[hour].push({
+          "type": "proposal",
+          "roomId": details["roomId"],
+          "message": details["name"] + " propose le créneau suivant :",
+          "mid": details["mid"],
+          "timestamp": Date.now()/1000,
+          "game": {
+            "club_name": name,
+            "game_hour": hour,
+            "club_address": address,
+            "game_date": document.querySelector("#search_date").value,
+            "club_tel": "",
+            "club_email": "",
+            "reservation_link": "https://tennis.paris.fr/tennis/jsp/site/Portal.jsp?page=recherche&view=recherche_creneau#!",
+            "club_address_link": address_link
+          }
+        })
+      }
+    }
+
+  }
+
+  function addhourtolist(){
+    document.querySelector("#search_options").innerHTML = '<option value="">🕑 Choisir</option>'
+    Object.keys(proposals).sort().forEach((hour)=> {
+      document.querySelector("#search_options").innerHTML += '<option value="'+hour+'">'+hour+'</option>'
+    })
+  }
+
+  function proposeTime(hour, number){
+
+    socket.emit('proposal', proposals[hour][number])
+
+    let date = proposals[hour][number]["game"]["game_date"]
+    setTimeout(function(){
+      document.querySelector("#search_options").addEventListener("change", (event)=> {
+        document.querySelector("#search_results").innerHTML = ""
+        let hour = document.querySelector("#search_options").value
+        if(hour == ""){
+          document.querySelector("#search_results").innerHTML = ""
+        } else {
+          let games = proposals[hour]
+          for(var i = 0; i < games.length; i++){
+              addGame(games[i], games[i].date, true, i)
+          }
+        }
+      })
+      document.querySelector("#search_results").innerHTML = ""
+      document.querySelector("#search_date").value = date
+
+    }, 2000)
+  }
+
 
 </script>
 
