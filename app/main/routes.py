@@ -11,13 +11,11 @@ def index():
         session['name'] = form.name.data
         session['mid'] = form.mid.data
         session['room'] = form.room.data
-        session['game'] = form.game.data
         return redirect(url_for('.chat'))
     elif request.method == 'GET':
         form.name.data = session.get('name', '')
         form.mid.data = session.get('mid', '')
         form.room.data = session.get('room', '')
-        form.game.data = session.get('game', '')
     return render_template('index.html', form=form)
 
 

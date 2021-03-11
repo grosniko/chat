@@ -8,5 +8,5 @@ class LoginForm(Form):
     name = StringField('Name', validators=[Required()])
     mid = StringField('mid', validators=[Required()])
     room = StringField('Room', validators=[Required()])
-    game = StringField('game', validators=[Required()])
+    # game = StringField('game', validators=[Required()])
     submit = SubmitField('Rentrer')

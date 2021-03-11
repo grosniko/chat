@@ -359,7 +359,7 @@
   <main class="msger-chat" id="chatarea" mid={{ mid }}>
 
   </main>
-  <button type="submit" style="position:absolute; bottom:100px; right:20px; padding:10px; border:1px solid white; background:transparent;" class="msger-send-btn" onclick="findCourtsInterface()">🔎</button>
+  <button type="submit" style="position:absolute; bottom:100px; opacity:0.5; right:20px; padding:10px; border:1px solid white; background:transparent;" class="msger-send-btn" onclick="findCourtsInterface(this)">🔎</button>
   <div class="msger-inputarea">
     <!-- <input type="text" id="text" class="msger-input" placeholder="Votre message..."> -->
     <textarea rows=2 id="text" class="msger-input" placeholder="Votre message..."></textarea>
@@ -411,16 +411,16 @@
   }
 
   function loadChat(data) {
-
+    console.log(data["chatHistory"])
     var chatarea = document.querySelector("#chatarea")
     var userName = chatarea.getAttribute("name")
     chatarea.innerHTML = ""
     var chatHistory = data["chatHistory"]
     let statusDate = ""
-    if (data['chatHistory'][0]["type"] == "proposal") {
-      statusDate = new Date(1000 * data['chatHistory'][0]["timestamp"]) //turn to javascript
-    } else {
+    if (data['chatHistory'][0]["type"] == "text") {
       statusDate = new Date(data['chatHistory'][0]["localDate"])
+    } else {
+      statusDate = new Date(1000 * data['chatHistory'][0]["timestamp"])//turn to javascript
     }
 
 
@@ -448,6 +448,8 @@
           addHistoryStatus(statusDate)
         }
         addGame(chatHistory[i], new Date(1000 * chatHistory[i]["timestamp"]))
+      } else if(chatHistory[i]["type"] == "instructions") {
+        addInstructions()
       }
 
 
@@ -457,6 +459,21 @@
 
   }
 
+  function addInstructions(){
+    var buildHTML = '<div class="proposal">'
+
+      buildHTML += '<p>Bienvenu au chat ! Organise ta partie de tennis avec ton partenaire ici.</p><br>'+
+                   '<p>👉 Appuie sur 🔎 pour trouver des terrains disponibles</p>'+
+                   '<p>👉 Choisis une heure et un terrain et fais une proposition</p>'+
+                   '<p>👉 Rajoute la partie à ton calendrier</p>'+
+                   '<br>'+
+                   '<p>Bon tennis 🎾</p>'
+
+      chatarea.innerHTML += buildHTML
+      //scroll to the bottom
+      $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight)
+
+  }
 
   function addStatus(data) {
     var chatarea = document.querySelector("#chatarea")
@@ -503,11 +520,11 @@
       '<p>' + game.game_hour + '</p>' +
       '<p><a href="' + game.club_address_link + '" target="blank">' + game.club_address + '</a></p>' +
       reservation_block +
-      '</div>'+
+      '</div>'
+      if(!search){
+      buildHTML += '<p>Parlez-en ici pour s\'organiser !</p>'+
 
       add_to_calendar_block
-      if(!search){
-      buildHTML += '<p>Parlez-en ici pour s\'organiser !</p>'
     } else {
       buildHTML += '<p><button class="msger-send-btn" style="padding:10px; background-color: #7470ff;" onclick=proposeTime("'+game.game_hour+'",'+game_num+')> Proposer ce créneau </button></p>'
     }
@@ -619,28 +636,39 @@
 
   // COURT SEARCH FEATURE
   let proposals = {}
-  function findCourtsInterface() {
+  function findCourtsInterface(el) {
+
     proposals = {}
     var chatarea = document.querySelector("#chatarea")
     try {
       document.querySelector("#search").remove()
-    } catch (e) {}
-    var buildHTML = '<div id="search"><div class="statusUpdate"><p><strong>Recherche de terrain (ton interlocuteur ne voit pas ceci)</strong></p></div><br>' +
-      '<div class="proposal" style="padding: 20px">' +
-      '<p>📅 Date</p>' +
-      '<p>' + '<input type="date" id="search_date">' + '</p>' +
-      // '<p>🕑 Heure</p>' +
-      // '<p>' + '<select id="search_time"><option value="morning">matin</option><option value="afternoon">après-midi</option><option value="evening">soir</option></select></p>' +
-      '<p>📍Localisation (XX ou XXXXX)</p>' +
-      '<p>' + '<input id="search_location" type="text" size="5" maxlength="5" placeholder="ie 75"></p>' +
-      '<br><p><img style="display:none; padding-left:10px; width: 90px;" id="search_loading" src="../static/loading.gif" /><button id="search_button" class="msger-send-btn" style="padding:10px; background-color: #7470ff;" onclick=searchCourts()>Search</button></p>' +
-      '<br>' +
-      '<select style="display:none;" id="search_options"><option value="">🕑 Choisir</option></select>'+
-      '<div id="search_results"></div>'+
-      '</div>' +
-      '</div>' +
-      '<br>' +
-      '</div>'
+      el.style.opacity = 0.5
+    } catch (e) {
+      el.style.opacity = 1
+    var buildHTML = '<div id="search">'+
+                      '<br>'+
+                      '<div class="statusUpdate">'+
+                        '<p><strong>Recherche de terrain (ton interlocuteur ne voit pas ceci)</strong></p>'+
+                      '</div>'+
+                      '<br>' +
+                      '<div class="proposal" style="padding: 20px">' +
+                        '<p>📅 Date</p>' +
+                        '<p><input type="date" id="search_date"></p><br>' +
+                        '<p>📍Localisation (XX ou XXXXX)</p>' +
+                        '<p><input id="search_location" style="font-size: 18px;" type="text" size="5" maxlength="5" placeholder="ie 75"></p>' +
+                        '<br>'+
+                        '<p>'+
+                          '<img style="display:none; padding-left:10px; width: 90px;" id="search_loading" src="../static/loading.gif" />'+
+                          '<button id="search_button" class="msger-send-btn" style="padding:10px; background-color: #7470ff;" onclick=searchCourts()>Search</button>'+
+                        '</p>' +
+                        '<br>' +
+                        '<select style="display:none;" style="font-size: 18px;" id="search_options">'+
+                          '<option value="">🕑 Choisir</option>'+
+                        '</select>'+
+                        '<div id="search_results"></div>'+
+                      '</div>' +
+                    '</div>'
+
     chatarea.innerHTML += buildHTML
 
     document.querySelector("#search_options").addEventListener("change", (event)=> {
@@ -656,7 +684,7 @@
       }
 
     })
-
+    }
     $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight);
   }
 

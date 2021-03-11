@@ -51,18 +51,6 @@ def joined(message):
         query = {"receiver": mid}
         scheduler.delete_many(query)
 
-    # game = session.get('game')
-    #if there is a game proposal
-    # if len(game)>2:
-    #     emit('game', {'message': session.get('name') + ' accepte le RDV tennis suivant: ', 'game': game}, room=room)
-    #     query = {"type":"proposal", "roomId": room, "message":session.get('name') + ' accepte le RDV tennis suivant: ', "timestamp": time.time(), 'game': game, "localDate": date}
-    #
-    #     #insert if not inserted already
-    #     if len(list(chat.find(query).limit(1))) > 0:
-    #         chat.insert_one(query)
-    #     session['game'] = '{}'
-
-    # emit('status', {'msg': session.get('name') + ' est en ligne.'}, room=room)
 
 
 @socketio.on('proposal', namespace='/chat')

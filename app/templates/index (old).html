@@ -52,7 +52,7 @@
           overflow: hidden;
           /* box-shadow: 0 5px 15px #FFC700; */
           border-radius: 20px;
-          -webkit-appearance: none;
+          -webkit-appearance: none; 
         }
 
         .hide{
@@ -77,14 +77,14 @@
             <span class = "hide"> {{ form.name.label }}: {{ form.name(id_="name") }} {% for error in form.name.errors %}{{ error }}{% endfor %}</span><br>
             <span class = "hide"> {{ form.mid.label }}: {{ form.mid(id_="mid") }} {% for error in form.mid.errors %}{{ error }}{% endfor %}</span><br>
             <span class = "hide"> {{ form.room.label }}: {{ form.room(id_="room") }} {% for error in form.room.errors %}{{ error }}{% endfor %}</span><br>
-            
+            <span class = "hide"> {{ form.game.label }}: {{ form.game(id_="game") }} {% for error in form.game.errors %}{{ error }}{% endfor %}</span><br>
             <img src="{{ url_for('static', filename='yds.png') }}" /><br><br><br>
             <img id="loading" style="margin: 0 auto; display: block;" src ="{{ url_for('static', filename='loading.gif') }}" />
             {{ form.submit(class_="button") }}
         </form>
       </div>
     </body>
-    <script src="https://unpkg.com/json5@^2.0.0/dist/index.min.js"></script>
+
     <script>
     function b64DecodeUnicode(str) {
         // Going backwards: from bytestream, to percent-encoding, to original string.
@@ -119,7 +119,14 @@
     var result = {
       "name":"Player-"+makeid(5),
       "roomId":"WildcardCrazy",
-      "mid": makeid(10)
+      "mid": makeid(10),
+      "game": {
+      "club_name": "CSP FFT ILE DE PUTEAUX",
+      "game_hour": "09:00",
+      "club_address": "1 allée des sports 92800 PUTEAUX",
+      "game_date": "2021-02-12",
+      "club_address_link": "https://www.google.com/maps/search/1 allée des sports 92800 PUTEAUX"
+    }
     }
 
     document.getElementById("submit").style.display = "none"
@@ -130,29 +137,25 @@
     if(b64String != null){
       b64String = b64String.replace(/\s/g, '+')
       let result_string = b64DecodeUnicode(b64String)
-      console.log(result_string)
       // result_string = result_string.replace(/'/g,'"')
-      result= JSON5.parse(result_string)
+      result= JSON.parse(result_string)
     }
 
     document.getElementById('name').value = result["name"]
     document.getElementById('mid').value = result["mid"]
     document.getElementById('room').value = result["roomId"]
+    document.getElementById('game').value = JSON.stringify(result["game"])
     //
-    if(Object.keys(result).includes("createRoom")){
-      if(result["createRoom"] == 1){
-        makeRequest(result)
-      } else {
-        document.getElementById("submit").style.display = "block"
-        document.getElementById("loading").style.display = "none"
-      }
+    if(Object.keys(result["game"]).length > 0 ){
+      makeRequest(result)
+
     } else {
       document.getElementById("submit").style.display = "block"
       document.getElementById("loading").style.display = "none"
     }
 
     function makeRequest(data) {
-      var url = "https://europe-west1-wildcard-b00.cloudfunctions.net/accept_proposal"
+      var url = "https://europe-west1-wildcard-b00.cloudfunctions.net/FR_save_chat_accept_notif"
       var httpRequest = new XMLHttpRequest(); // Initiatlization of XMLHttpRequest
       if (!httpRequest) {
         alert('Cannot create an XMLHTTP instance');
