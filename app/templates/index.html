@@ -77,7 +77,7 @@
             <span class = "hide"> {{ form.name.label }}: {{ form.name(id_="name") }} {% for error in form.name.errors %}{{ error }}{% endfor %}</span><br>
             <span class = "hide"> {{ form.mid.label }}: {{ form.mid(id_="mid") }} {% for error in form.mid.errors %}{{ error }}{% endfor %}</span><br>
             <span class = "hide"> {{ form.room.label }}: {{ form.room(id_="room") }} {% for error in form.room.errors %}{{ error }}{% endfor %}</span><br>
-            
+
             <img src="{{ url_for('static', filename='yds.png') }}" /><br><br><br>
             <img id="loading" style="margin: 0 auto; display: block;" src ="{{ url_for('static', filename='loading.gif') }}" />
             {{ form.submit(class_="button") }}
@@ -130,7 +130,7 @@
     if(b64String != null){
       b64String = b64String.replace(/\s/g, '+')
       let result_string = b64DecodeUnicode(b64String)
-      console.log(result_string)
+      // console.log(result_string)
       // result_string = result_string.replace(/'/g,'"')
       result= JSON5.parse(result_string)
     }
