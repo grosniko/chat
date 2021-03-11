@@ -30,7 +30,7 @@
       height: 100%;
       background-image: var(--body-bg);
       font-family: Helvetica, sans-serif;
-      font-size:16px;
+      font-size:18px;
     }
 
     textarea {
@@ -279,7 +279,7 @@
 
     @media screen and (-webkit-min-device-pixel-ratio: 0) {
       select:focus, textarea:focus, input:focus {
-              font-size: 20px;
+              font-size: 18px;
             }
     }
   </style>
@@ -613,11 +613,14 @@
 
   function sendText() {
     text = $('#text').val();
-    $('#text').val('');
-    socket.emit('text', {
-      msg: text,
-      date: new Date()
-    });
+    if(text != ''){
+      $('#text').val('');
+      socket.emit('text', {
+        msg: text,
+        date: new Date()
+      });
+    }
+
   }
 
   function formatDate(date) {
@@ -670,7 +673,7 @@
                           '<button id="search_button" class="msger-send-btn" style="padding:10px; background-color: #7470ff;" onclick=searchCourts()>Search</button>'+
                         '</p>' +
                         '<br>' +
-                        '<select style="display:none;" style="font-size: 20px !important;" id="search_options">'+
+                        '<select style="display:none; font-size: 18px !important;" id="search_options">'+
                           '<option value="">🕑 Choisir</option>'+
                         '</select>'+
                         '<div id="search_results"></div>'+
