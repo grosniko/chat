@@ -18,6 +18,7 @@
         }
 
         .center {
+          position:relative;
           display: flex;
           flex-flow: column wrap;
           justify-content: space-between;
@@ -33,7 +34,11 @@
         }
 
         form {
-          margin: 0 auto auto auto;
+            margin: 30px auto auto auto;
+            border: 5px solid white;
+            position: relative;
+            padding: 50px;
+            background-color: #fbfbff;
         }
 
         button, .button {
@@ -43,16 +48,16 @@
           cursor: pointer;
           letter-spacing: 4px;
           position: relative;
-          background-color: #0089ff;
+          background-color: #8c8c8c;
           border: none;
           color: #fff;
-          padding: 50px 20px;
+          padding: 20px;
           text-align: center;
           transition-duration: 0.4s;
           overflow: hidden;
           /* box-shadow: 0 5px 15px #FFC700; */
-          border-radius: 20px;
           -webkit-appearance: none;
+          width: 150px;
         }
 
         .hide{
@@ -64,6 +69,15 @@
           display: block;
         }
 
+        .button_other{
+          text-decoration: none;
+          margin: 0 auto;
+          display:block;
+        }
+
+        .images{
+          margin:auto auto 30px auto;
+        }
         </style>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,16 +86,24 @@
 
         <div class="center">
           <!-- <h1 style="text-align:center; margin: auto auto 0px auto;">Wildcard Chat</h1> -->
+          <div class="images">
+          <img style="margin: auto auto; display: block;" src="{{ url_for('static', filename='yds.png') }}" />
+        </div>
           <form method="POST">
-            {{ form.hidden_tag() }}
-            <span class = "hide"> {{ form.name.label }}: {{ form.name(id_="name") }} {% for error in form.name.errors %}{{ error }}{% endfor %}</span><br>
-            <span class = "hide"> {{ form.mid.label }}: {{ form.mid(id_="mid") }} {% for error in form.mid.errors %}{{ error }}{% endfor %}</span><br>
-            <span class = "hide"> {{ form.room.label }}: {{ form.room(id_="room") }} {% for error in form.room.errors %}{{ error }}{% endfor %}</span><br>
-
-            <img src="{{ url_for('static', filename='yds.png') }}" /><br><br><br>
             <img id="loading" style="margin: 0 auto; display: block;" src ="{{ url_for('static', filename='loading.gif') }}" />
+            {{ form.hidden_tag() }}
+            <span class = "hide"> {{ form.name.label }}: {{ form.name(id_="name") }} {% for error in form.name.errors %}{{ error }}{% endfor %}</span>
+            <span class = "hide"> {{ form.mid.label }}: {{ form.mid(id_="mid") }} {% for error in form.mid.errors %}{{ error }}{% endfor %}</span>
+            <span class = "hide"> {{ form.room.label }}: {{ form.room(id_="room") }} {% for error in form.room.errors %}{{ error }}{% endfor %}</span>
             {{ form.submit(class_="button") }}
+            <br>
+            <a href = "https://m.me/WildcardDigitalTennisClub?ref=Menu_FR_profiles" class="button button_other">Mes Joueurs</a><br>
+            <a href = "https://m.me/WildcardDigitalTennisClub?ref=Redirect" class="button button_other">Menu</a>
+
+
         </form>
+
+
       </div>
     </body>
     <script src="https://unpkg.com/json5@^2.0.0/dist/index.min.js"></script>
