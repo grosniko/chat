@@ -315,14 +315,14 @@
         $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight);
       });
 
-      let refresh = setTimeout(function() {
-        window.location.reload(1);
-      }, 1000)
-      socket.on('chatHistory', function(data) {
-        //stop reload if it happens
-        clearTimeout(refresh)
-        loadChat(data)
-      });
+      // let refresh = setTimeout(function() {
+      //   window.location.reload(1);
+      // }, 1000)
+      // socket.on('chatHistory', function(data) {
+      //   //stop reload if it happens
+      //   clearTimeout(refresh)
+      //   loadChat(data)
+      // });
 
       socket.on('game', function(game) {
 
