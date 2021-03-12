@@ -23,6 +23,7 @@ def joined(message):
     #sort by descending order of creation
 
     #get chatroom info
+
     db = client.get_database("chat_rooms")
     chat = db["chat_rooms"]
     query = {"roomId": room, "mid" : {"$ne": int(mid)}}
@@ -44,11 +45,13 @@ def joined(message):
     chatHistory = list(chat.find(query, {'_id': False}).limit(50))
     if len(chatHistory) > 0:
         #load chat history
+
         emit('chatHistory', {'chatHistory': chatHistory}, room=id)
+
 
         #delete all scheduled notifications to this user in this chatroom
         scheduler = db["scheduler"]
-        query = {"receiver": mid}
+        query = {"receiver": int(mid)}
         scheduler.delete_many(query)
 
 
