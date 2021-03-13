@@ -20,7 +20,7 @@
       margin: 0;
       padding: 0;
       box-sizing: inherit;
-      font-size: 2.3vh;
+      font-size: 18px;
     }
 
     body {
@@ -30,7 +30,6 @@
       height: 100%;
       background-image: var(--body-bg);
       font-family: Helvetica, sans-serif;
-      font-size:18px;
     }
 
     textarea {
@@ -123,7 +122,7 @@
     }
 
     .msg-info-time {
-      font-size: 0.85em;
+      font-size: 18px;
     }
 
     .left-msg .msg-bubble {
@@ -155,7 +154,7 @@
       padding: 10px;
       border: none;
       border-radius: 3px;
-      font-size: 1em;
+      font-size: 18px;
     }
 
     .msger-input {
@@ -367,7 +366,7 @@
   <main class="msger-chat" id="chatarea" mid={{ mid }}>
 
   </main>
-  <button type="submit" style="position:absolute; bottom:100px; opacity:0.5; right:20px; padding:10px; border:1px solid white; background:transparent;" class="msger-send-btn" onclick="findCourtsInterface(this)">🔎</button>
+  <button type="submit" style="position:absolute; bottom:100px; opacity:0.5; right:20px; padding:10px; border:0px solid white; background:transparent;" class="msger-send-btn" onclick="findCourtsInterface(this)">🔎</button>
   <div class="msger-inputarea">
     <!-- <input type="text" id="text" class="msger-input" placeholder="Votre message..."> -->
     <textarea rows=2 id="text" class="msger-input" placeholder="Votre message..."></textarea>
@@ -653,8 +652,11 @@
     var chatarea = document.querySelector("#chatarea")
     try {
       document.querySelector("#search").remove()
+      el.style.borderWidth = "0px"
+
       el.style.opacity = 0.5
     } catch (e) {
+      el.style.borderWidth = "1px"
       el.style.opacity = 1
     var buildHTML = '<div id="search">'+
                       '<br>'+
@@ -724,7 +726,7 @@
     document.querySelector("#search_options").style.display = "none"
     document.querySelector("#search_loading").style.display = "inherit"
     document.querySelector("#search_button").style.display = "none"
-
+    $('#chatarea').scrollTop($('#chatarea')[0].scrollHeight);
 
     let paris = "https://europe-west1-wildcard-b00.cloudfunctions.net/FR_parisTennis"
     let getCourts = "https://europe-west1-wildcard-b00.cloudfunctions.net/FR_getCourts"
