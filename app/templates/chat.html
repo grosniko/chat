@@ -20,7 +20,7 @@
       margin: 0;
       padding: 0;
       box-sizing: inherit;
-      font-size: 18px;
+      font-size: 16px;
     }
 
     body {
@@ -34,7 +34,7 @@
 
     textarea {
       font-family: Helvetica, sans-serif;
-      font-size: 18px !important;
+      font-size: 16px !important;
     }
 
     .msger {
@@ -122,7 +122,7 @@
     }
 
     .msg-info-time {
-      font-size: 18px;
+      font-size: 16px;
     }
 
     .left-msg .msg-bubble {
@@ -154,7 +154,7 @@
       padding: 10px;
       border: none;
       border-radius: 3px;
-      font-size: 18px;
+      font-size: 16px;
     }
 
     .msger-input {
@@ -278,7 +278,7 @@
 
     @media screen and (-webkit-min-device-pixel-ratio: 0) {
       select:focus, textarea:focus, input:focus {
-              font-size: 18px;
+              font-size: 16px;
             }
     }
   </style>
@@ -666,16 +666,16 @@
                       '<br>' +
                       '<div class="proposal" style="padding: 20px">' +
                         '<p>📅 Date</p>' +
-                        '<p><input type="date" id="search_date"></p><br>' +
+                        '<p><input type="date" style="margin-top: 5px;" id="search_date"></p><br>' +
                         '<p>📍Localisation (XX ou XXXXX)</p>' +
-                        '<p><input id="search_location" style="font-size: 18px;" type="text" size="5" maxlength="5" placeholder="ie 75"></p>' +
+                        '<p><input id="search_location" style="margin-top: 5px; font-size: 16px;" type="text" size="5" maxlength="5" placeholder="ie 75"></p>' +
                         '<br>'+
                         '<p>'+
                           '<img style="display:none; padding-left:10px; width: 90px;" id="search_loading" src="../static/loading.gif" />'+
-                          '<button id="search_button" class="msger-send-btn" style="padding:10px; background-color: #7470ff;" onclick=searchCourts()>Search</button>'+
+                          '<button id="search_button" class="msger-send-btn" style="margin-left: 0px; padding:10px; background-color: #7470ff;" onclick=searchCourts()>Recherche</button>'+
                         '</p>' +
                         '<br>' +
-                        '<select style="display:none; font-size: 18px !important;" id="search_options">'+
+                        '<select style="display:none; font-size: 16px !important;" id="search_options">'+
                           '<option value="">🕑 Choisir</option>'+
                         '</select>'+
                         '<div id="search_results"></div>'+
