@@ -526,7 +526,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
                     '<p>' + data.message + '</p>'+
                     '<div class="proposal">'
       } else {
-        buildHTML += '<div class="proposal" style="border: 1px solid white;">'
+        buildHTML += '<div class="proposal" style="border: 1px solid white; background-color: #ffce76">'
       }
       buildHTML += '<p>' + game.club_name + '</p>' +
       '<p>' + game.game_date + '</p>' +
@@ -681,7 +681,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
                           '<button id="search_button" class="msger-send-btn" style="margin-left: 0px; padding:10px; background-color: #7470ff;" onclick=searchCourts()>Recherche</button>'+
                         '</p>' +
                         '<br>' +
-                        '<select style="display:none; font-size: 16px !important;" id="search_options">'+
+                        '<select style="display:none; padding:10px; font-size: 16px !important;" id="search_options">'+
                           '<option value="">🕑 Choisir</option>'+
                         '</select>'+
                         '<div id="search_results"></div>'+
