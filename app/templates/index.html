@@ -94,7 +94,7 @@
           <img style="margin: auto auto; display: block;" src="{{ url_for('static', filename='yds.png') }}" />
         </div>
           <form method="POST">
-            <img id="loading" style="margin: 0 auto; display: block;" src ="{{ url_for('static', filename='loading.gif') }}" />
+            <img id="loading" style="margin: 0 auto; display: block; width:100px;" src ="{{ url_for('static', filename='loading.gif') }}" />
             {{ form.hidden_tag() }}
             <span class = "hide"> {{ form.name.label }}: {{ form.name(id_="name") }} {% for error in form.name.errors %}{{ error }}{% endfor %}</span>
             <span class = "hide"> {{ form.mid.label }}: {{ form.mid(id_="mid") }} {% for error in form.mid.errors %}{{ error }}{% endfor %}</span>
