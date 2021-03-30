@@ -569,8 +569,8 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     date1.addHours(hour1)
     date2.addHours(hour1 + 1)
 
-    let start_date_string = date1.toISOString().replaceAll(/-/g, "").replaceAll(/:/g, "").split(".")[0] + "Z"
-    let end_date_string = date2.toISOString().replaceAll(/-/g, "").replaceAll(/:/g, "").split(".")[0] + "Z"
+    let start_date_string = date1.toISOString().replace(/-/g, "").replace(/:/g, "").split(".")[0] + "Z"
+    let end_date_string = date2.toISOString().replace(/-/g, "").replace(/:/g, "").split(".")[0] + "Z"
 
     let html = '<div class="atc-wrapper">' +
       '<label for="atc-checkbox" class="atc-checkbox-label">Rajouter au calendrier</label>' +
