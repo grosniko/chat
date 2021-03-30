@@ -341,6 +341,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 
       socket.on('details', function(data) {
         details = data
+        document.querySelector("#partner_name").innerHTML = details["partner_name"]
 
       });
 
@@ -369,7 +370,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 
 
 
-
+  <span style="position:absolute; top:25px; opacity:0.3; right:100px; padding:10px; border:0px solid white; background:transparent;" id="partner_name"></span>
   <button type="submit" style="position:absolute; top:20px; opacity:0.3; right:60px; padding:10px; border:0px solid white; background:transparent;" class="msger-send-btn" onclick="showCard(this)">🧑‍🦱</button>
   <button type="submit" style="position:absolute; top:20px; opacity:0.3; right:20px; padding:10px; border:0px solid white; background:transparent;" class="msger-send-btn" onclick="findCourtsInterface(this)">🔎</button>
   <div class="msger-inputarea">
@@ -424,6 +425,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 
   function loadChat(data) {
     // console.log(data["chatHistory"])
+
     var chatarea = document.querySelector("#chatarea")
     var userName = chatarea.getAttribute("name")
     chatarea.innerHTML = ""
